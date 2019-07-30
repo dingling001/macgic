@@ -1,0 +1,121 @@
+#main {
+    width: 88%;
+    margin: 0 auto;
+}
+
+.weather_head {
+    margin: .7rem auto .4rem auto;
+    background-color: rgba(0, 210, 255, .2);
+    border-radius: 6px;
+    height: 2.93rem;
+}
+
+.city {
+    padding: 50px;
+    font-size: .36rem;
+    font-weight: bold;
+}
+
+.weather_box {
+    overflow: hidden;
+    font-weight: bold;
+    padding: 0 .55rem;
+}
+
+.weather_box .time {
+    float: left;
+    font-size: .78rem;
+}
+
+.weather_box .date {
+    float: left;
+    padding: 0 0.78rem 0 .6rem;
+    font-size: .36rem;
+    border-right: 2px solid #000;
+}
+
+.weather_box .date span {
+    display: block;
+}
+
+.weather_box .date span:first-child {
+    padding-bottom: .1rem;
+}
+
+.weather_box .temp {
+    font-size: .36rem;
+    float: left;
+    padding: 0 0 0 .66rem;
+}
+
+.weather_box .temp span {
+    margin: 0 .37rem 0.1rem 0;
+    display: inline-block;
+}
+
+.chart {
+    height: 680px;
+}
+
+.navbox {
+    height: 249px;
+    background-color: #FFE6CC;
+    margin: .57rem 0 0 0;
+    padding: .59rem 0 .29rem 0;
+}
+
+.navbox .navitem {
+    float: left;
+    width: 33%;
+    text-align: center;
+    color: #005176;
+    font-size: .36rem;
+
+}
+
+.navbox .navitem .navimg {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin: 0 auto;
+}
+
+.navbox .navitem .navimg img {
+    width: 100%;
+}
+
+.codebox {
+    width: 53%;
+    margin: 1.06rem auto .36rem auto;
+    overflow: hidden;
+}
+
+.codebox .public_code {
+    float: left;
+    width: 1.81rem;
+    height: 1.81rem;
+    vertical-align: middle;
+}
+
+.codebox .app_code {
+    float: right;
+}
+
+.codebox img {
+    width: 100%;
+}
+
+.tips {
+    text-align: center;
+    font-size: 0.3rem;
+}
+
+.logobox {
+    width: 27%;
+    margin: 0 auto;
+    font-size: 0;
+    padding: .55rem 0;
+}
+
+.logobox img {
+    width: 100%;
+}
