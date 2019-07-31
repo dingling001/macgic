@@ -10,12 +10,12 @@ var VM = new Vue({
         cond_code_d: '100',
         tmp_max: '',
         tmp_min: '',
-        admin_area:'兰州',
-        pm25:''
+        admin_area: '兰州',
+        pm25: ''
     },
     created: function () {
         var _ = this;
-
+        // alert(_.getBrowserInfo())
     },
     mounted: function () {
         var _ = this;
@@ -37,7 +37,7 @@ var VM = new Vue({
         setInterval(function () {
             _.initchart();
             _.getLeftMenu()
-        }, 60000)
+        }, 60000);
         _.setWeather();
         _.getair()
     },
@@ -78,8 +78,8 @@ var VM = new Vue({
                         // console.log(now)
                         vm.tmp_max = daily_forecast.tmp_max;
                         vm.tmp_min = daily_forecast.tmp_min;
-                        vm.cond_code_d=daily_forecast.cond_code_d;
-                        vm.admin_area = basic.admin_area;
+                        vm.cond_code_d = daily_forecast.cond_code_d;
+                        vm.admin_area = basic.parent_city;
                     }
                 },
                 error: function (rlt) {
@@ -245,6 +245,64 @@ var VM = new Vue({
             _.myChart.setOption(options);
         },
 
-
+        getBrowserInfo: function () {
+            let agent = navigator.userAgent.toLowerCase();
+            console.log(agent);
+            let arr = [];
+            let system = agent.split(' ')[1].split(' ')[0].split('(')[1];
+            arr.push(system);
+            let REGSTR_EDGE = /edge\/[\d.]+/gi;
+            let REGSTR_IE = /trident\/[\d.]+/gi;
+            let OLD_IE = /msie\s[\d.]+/gi;
+            let REGSTR_FF = /firefox\/[\d.]+/gi;
+            let REGSTR_CHROME = /chrome\/[\d.]+/gi;
+            let REGSTR_SAF = /safari\/[\d.]+/gi;
+            let REGSTR_OPERA = /opr\/[\d.]+/gi;
+            // IE
+            if (agent.indexOf('trident') > 0) {
+                arr.push(agent.match(REGSTR_IE)[0].split('/')[0]);
+                arr.push(agent.match(REGSTR_IE)[0].split('/')[1]);
+                return arr;
+            }
+            // OLD_IE
+            if (agent.indexOf('msie') > 0) {
+                arr.push(agent.match(OLD_IE)[0].split(' ')[0]);
+                arr.push(agent.match(OLD_IE)[0].split(' ')[1]);
+                return arr;
+            }
+            // Edge
+            if (agent.indexOf('edge') > 0) {
+                arr.push(agent.match(REGSTR_EDGE)[0].split('/')[0]);
+                arr.push(agent.match(REGSTR_EDGE)[0].split('/')[1]);
+                return arr;
+            }
+            // firefox
+            if (agent.indexOf('firefox') > 0) {
+                arr.push(agent.match(REGSTR_FF)[0].split('/')[0]);
+                arr.push(agent.match(REGSTR_FF)[0].split('/')[1]);
+                return arr;
+            }
+            // Opera
+            if (agent.indexOf('opr') > 0) {
+                arr.push(agent.match(REGSTR_OPERA)[0].split('/')[0]);
+                arr.push(agent.match(REGSTR_OPERA)[0].split('/')[1]);
+                return arr;
+            }
+            // Safari
+            if (agent.indexOf('safari') > 0 && agent.indexOf('chrome') < 0) {
+                arr.push(agent.match(REGSTR_SAF)[0].split('/')[0]);
+                arr.push(agent.match(REGSTR_SAF)[0].split('/')[1]);
+                return arr;
+            }
+            // Chrome
+            if (agent.indexOf('chrome') > 0) {
+                arr.push(agent.match(REGSTR_CHROME)[0].split('/')[0]);
+                arr.push(agent.match(REGSTR_CHROME)[0].split('/')[1]);
+                return arr;
+            } else {
+                arr.push('未获取到浏览器信息');
+                return arr;
+            }
+        }
     }
 });
