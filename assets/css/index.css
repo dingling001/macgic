@@ -5,13 +5,13 @@
 
 .weather_head {
     margin: .7rem auto .4rem auto;
-    background-color: rgba(0, 210, 255, .2);
+    background-color: #CCF6FF;
     border-radius: 6px;
     height: 2.93rem;
 }
 
 .city {
-    padding: 50px;
+    padding: .5rem;
     font-size: .36rem;
     font-weight: bold;
 }
@@ -19,19 +19,23 @@
 .weather_box {
     overflow: hidden;
     font-weight: bold;
-    padding: 0 .55rem;
+    /*padding: 0 .55rem;*/
+    text-align: center;
 }
 
 .weather_box .time {
     float: left;
     font-size: .78rem;
+    width: 37%;
 }
 
 .weather_box .date {
     float: left;
-    padding: 0 0.78rem 0 .6rem;
+    padding: 0 0.2rem 0 0;
     font-size: .36rem;
     border-right: 2px solid #000;
+    width: 27%;
+    text-align: right;
 }
 
 .weather_box .date span {
@@ -43,14 +47,46 @@
 }
 
 .weather_box .temp {
-    font-size: .36rem;
     float: left;
-    padding: 0 0 0 .66rem;
+    padding: 0 0 0 .2rem;
+    width: 36%;
+    text-align: left;
+    font-size: .36rem;
+}
+
+.weather_box .temp div {
+    /*font-size: 0;*/
 }
 
 .weather_box .temp span {
     margin: 0 .37rem 0.1rem 0;
     display: inline-block;
+    font-size: .36rem;
+    height: .45rem;
+    line-height: .45rem;
+}
+
+.weather_box .temp .wendu {
+    height: .45rem;
+    margin-bottom: .1rem;
+    position: relative;
+}
+
+.weather_box .temp .wendu span {
+    margin: 0;
+    position: relative;
+}
+
+.weather_box .temp .wendu .imgspan {
+    position: absolute;
+    left: 1.5rem;
+    top: 0;
+    z-index: 1;
+}
+
+.weather_box .temp .wendu img {
+    width: .45rem;
+    height: .45rem;
 }
 
 .chart {
@@ -118,4 +154,8 @@
 
 .logobox img {
     width: 100%;
+}
+
+.navbox a:active {
+    opacity: .7;
 }

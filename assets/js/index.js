@@ -1,37 +1,144 @@
 var VM = new Vue({
     el: "#main",
     data: {
-        myChart: null
+        myChart: null,
+        time: '00:00:00',
+        time_flow: [],
+        date: '获取日期',
+        week: ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'],
+        weekday: '星期几',
+        cond_code_d: '100',
+        tmp_max: '',
+        tmp_min: '',
+        admin_area:'兰州',
+        pm25:''
     },
     created: function () {
         var _ = this;
-        _.getLeftMenu();
 
     },
     mounted: function () {
         var _ = this;
         _.myChart = echarts.init(document.querySelector("#chart"));
+        _.myChart.showLoading(
+            {
+                text: '加载中…',
+                color: '#32B16C',
+                textColor: '#000',
+                maskColor: 'rgba(12, 255, 0, .1)',
+                zlevel: 10
+            }
+        );
+        setInterval(function () {
+            _.getinitindex();
+        }, 1000);
         _.initchart();
         _.getLeftMenu();
+        setInterval(function () {
+            _.initchart();
+            _.getLeftMenu()
+        }, 60000)
+        _.setWeather();
+        _.getair()
     },
     methods: {
+        // 获取日期
+        getinitindex: function () {
+            var _ = this;
+            var date = new Date();
+            var h = date.getHours();
+            var m = date.getMinutes();
+            var s = date.getSeconds();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            var week = date.getDay();
+            _.date = month + '月' + day + '日';
+            _.time = h + ':' + _.add0(m) + ':' + _.add0(s);
+            _.weekday = _.week[week];
+        },
+        // 数字超10 加0
+        add0: function (a) {
+            return a >= 10 ? a : '0' + a
+        },
+        // 设置天气
+        setWeather: function () {
+            var vm = this;
+            BaseAjax.get({
+                type: "get",
+                url: "https://free-api.heweather.com/s6/weather/forecast",
+                data: {
+                    location: "auto_ip",
+                    key: weatherkey
+                },
+                success: function (rlt) {
+                    if (rlt.HeWeather6[0].status == 'ok') {
+                        console.log(rlt);
+                        var daily_forecast = rlt.HeWeather6[0].daily_forecast[0];
+                        var basic = rlt.HeWeather6[0].basic;
+                        // console.log(now)
+                        vm.tmp_max = daily_forecast.tmp_max;
+                        vm.tmp_min = daily_forecast.tmp_min;
+                        vm.cond_code_d=daily_forecast.cond_code_d;
+                        vm.admin_area = basic.admin_area;
+                    }
+                },
+                error: function (rlt) {
+                    console.log(rlt)
+                }
+            });
+        },
+        // 获取空气质量
+        getair: function () {
+            var vm = this;
+            BaseAjax.get({
+                type: "get",
+                url: "https://free-api.heweather.net/s6/air/now",
+                data: {
+                    location: "auto_ip",
+                    key: weatherkey,
+                    unit: '',
+                    lang: 'zh-cn'
+                },
+                success: function (rlt) {
+                    if (rlt.HeWeather6[0].status == 'ok') {
+                        console.log(rlt)
+                        var air_now_city = rlt.HeWeather6[0].air_now_city;
+                        vm.pm25 = air_now_city.pm25;
+                    }
+                },
+                error: function (rlt) {
+                    console.log(rlt)
+                }
+            });
+        },
+        // 获取客流信息
         getLeftMenu: function () {
             var _ = this;
+            var ck_stat_key = [];
+            var ck_stat_value = [];
+            BaseAjax.get({
+                url: "http://keliu.gsstm.org/api/time_flow?p=t",
+                success: function (res) {
+                    // console.log(res)
+                    _.myChart.hideLoading();
+                    if (res.status == 1) {
+                        _.time_flow = res.data.time_flow;
+                        for (var key in   _.time_flow) {
+                            ck_stat_key.push(key);
+                            ck_stat_value.push(_.time_flow[key])
+                        }
+                        setTimeout(function () {
+                            _.updatechart3(ck_stat_key, ck_stat_value)
+                        }, 10)
+                    } else {
 
-            // BaseAjax.get({
-            //     url: "../common/nav.html",
-            //     success: function (rlt) {
-            //
-            //     }
-            // });
-            var ck_stat_key = ['9:00', '10:00', '11:00'];
-            var ck_stat_value = [200, 100, 300];
-            setTimeout(function () {
-                _.updatechart3(ck_stat_key, ck_stat_value)
-            },10)
+                    }
+                }
+            });
+
         },
         // 图表
-        initchart() {
+        initchart: function () {
             var _ = this;
             var option = {
                 backgroundColor: 'rgba(12, 255, 0, .2)',
@@ -48,12 +155,12 @@ var VM = new Vue({
                 },
                 grid: {
                     top: "15%",
-                    bottom:'10%'
+                    bottom: '10%'
                 },
                 xAxis: [{
                     type: 'category',
                     boundaryGap: false,
-                    data: ['9:00', '10:00', '11:00', '12:00', '1:00', '2:00'],
+                    data: [],
                     axisLine: {
                         lineStyle: {
                             color: "#000",
@@ -85,7 +192,7 @@ var VM = new Vue({
                 }],
                 series: [{
                     type: 'line',
-                    data: [23, 60, 20, 36, 23, 85],
+                    data: [],
                     lineStyle: {
                         normal: {
                             width: 4,
@@ -123,7 +230,8 @@ var VM = new Vue({
             };
             _.myChart.setOption(option);
         },
-        updatechart3(ck_stat_key, ck_stat_value) {
+        // 更新图表
+        updatechart3: function (ck_stat_key, ck_stat_value) {
             var _ = this;
             var options = {
                 xAxis: {
@@ -135,7 +243,8 @@ var VM = new Vue({
                 }]
             };
             _.myChart.setOption(options);
-        }
+        },
+
 
     }
 });

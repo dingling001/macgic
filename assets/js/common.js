@@ -1,7 +1,7 @@
 var baseUrl = "http://192.168.10.158:8316/api/"; //嘉善测试平台
 // var baseUrl = "http://jiashan.museum-edu.cn"; //线上测试平台
 var ls = window.localStorage;
-
+var weatherkey='4cb210538d2c4a27ae661140753c71d0';//天气key
 var Utils = {
     /**
      * @取url查询字段参数
@@ -37,7 +37,7 @@ var Utils = {
     /**
      * @手势滑动
      */
-    initScroll: function(arg = "") {
+    initScroll: function(arg) {
         var myscroll = new iScroll("wrapper", {
             hScroll: false,
             vScroll: true,
@@ -207,7 +207,7 @@ var Utils = {
             }
             if (count == 0) {
                 clearInterval(outInterval);
-                window.location.href = "/macgic/index.html";
+                window.location.href = "http://192.168.11.90/project/macgic/index.html";
             }
         }, 1000);
     },
