@@ -1,15 +1,15 @@
 var baseUrl = "http://192.168.10.158:8316/api/"; //嘉善测试平台
 // var baseUrl = "http://jiashan.museum-edu.cn"; //线上测试平台
 var ls = window.localStorage;
-var weatherkey='4cb210538d2c4a27ae661140753c71d0';//天气key
+var weatherkey = '4cb210538d2c4a27ae661140753c71d0';//天气key
 var Utils = {
     /**
      * @取url查询字段参数
      */
-    getUrlKey: function(key) {
+    getUrlKey: function (key) {
         return (decodeURIComponent((new RegExp("[?|&]" + key + "=" + "([^&;]+?)(&|#|;|$)").exec(location.href) || [, ""])[1].replace(/\+/g, "%20")) || null);
     },
-    getRootPath: function() {
+    getRootPath: function () {
         var strFullPath = window.document.location.href;
         var strPath = window.document.location.pathname;
         var pos = strFullPath.indexOf(strPath);
@@ -19,7 +19,7 @@ var Utils = {
     /**
      * @判断网络状态
      */
-    checkNetStatus: function(element, type, handler) {
+    checkNetStatus: function (element, type, handler) {
         if (element.addEventListener) {
             element.addEventListener(type, handler, false);
         } else if (element.attachEvent) {
@@ -28,37 +28,37 @@ var Utils = {
             element["on" + type] = handler;
         }
     },
-    isNull: function(val) {
+    isNull: function (val) {
         return val == null ? '' : val;
     },
-    isArray: function(o) {
+    isArray: function (o) {
         return Object.prototype.toString.call(o) == '[object Array]';
     },
     /**
      * @手势滑动
      */
-    initScroll: function(arg) {
+    initScroll: function (arg) {
         var myscroll = new iScroll("wrapper", {
             hScroll: false,
             vScroll: true,
             hScrollbar: false,
             vScrollbar: false,
-            onScrollMove: function() {
+            onScrollMove: function () {
                 arg.onScrollMove && arg.onScrollMove.call(this);
             },
-            onScrollEnd: function() {
+            onScrollEnd: function () {
                 arg.onScrollEnd && arg.onScrollEnd.call(this);
             },
-            onRefresh: function() {
+            onRefresh: function () {
                 arg.onRefresh && arg.onRefresh.call(this);
             }
         });
-        setTimeout(function() { //放在计时器里边才好使，不然容易出错
+        setTimeout(function () { //放在计时器里边才好使，不然容易出错
             !arg && myscroll.refresh();
         }, 0);
         return myscroll;
     },
-    initScrollCont: function() {
+    initScrollCont: function () {
         var swiper = new Swiper('#contWrap', {
             direction: 'vertical',
             slidesPerView: 'auto',
@@ -70,7 +70,7 @@ var Utils = {
             observer: true,
             observeParents: true,
             on: {
-                slideChangeTransitionEnd: function() {
+                slideChangeTransitionEnd: function () {
                     this.update();
                 }
             }
@@ -80,7 +80,7 @@ var Utils = {
     /**
      * @判断是否移动端
      */
-    isMobile: function() {
+    isMobile: function () {
         var sUserAgent = navigator.userAgent.toLowerCase();
         var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
         var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
@@ -99,7 +99,7 @@ var Utils = {
     /**
      * @设置当前时间
      */
-    setLoctime: function() {
+    setLoctime: function () {
         var mydate = new Date();
         var year = mydate.getFullYear();
         var month = mydate.getMonth() + 1;
@@ -139,7 +139,7 @@ var Utils = {
 
         var Loctime;
         clearInterval(Loctime);
-        Loctime = setInterval(function() {
+        Loctime = setInterval(function () {
             mydate = new Date();
             hour = mydate.getHours();
             minu = mydate.getMinutes();
@@ -166,7 +166,7 @@ var Utils = {
     /**
      * @定时长屏幕无触发处理：返回首页，注销登录状态-----分享页不用倒计时
      */
-    noTouchtime: function(t) {
+    noTouchtime: function (t) {
         // 如页面有【#nobackTimer】元素，跳出本方法，不进行无触发处理
         if ($("#nobackTimer")[0]) {
             return;
@@ -182,22 +182,22 @@ var Utils = {
             $("#backTimer circle.c2").attr("stroke-dasharray", Math.PI * 2 * 40 + " " + Math.PI * 2 * 40);
         }
 
-        document.body.onmousedown = function() {
+        document.body.onmousedown = function () {
             count = ACTTIME;
         };
-        document.body.onkeydown = function() {
+        document.body.onkeydown = function () {
             count = ACTTIME;
         };
-        document.body.addEventListener("touchstart", function(e) {
+        document.body.addEventListener("touchstart", function (e) {
             count = ACTTIME;
         }, false);
-        document.body.addEventListener("touchmove", function(e) {
+        document.body.addEventListener("touchmove", function (e) {
             count = ACTTIME;
         }, false);
-        document.body.addEventListener("touchend", function(e) {
+        document.body.addEventListener("touchend", function (e) {
             count = ACTTIME;
         }, false);
-        var outInterval = setInterval(function() {
+        var outInterval = setInterval(function () {
             count--;
             if ($("#backTimer")[0]) {
                 var perc = count / ACTTIME;
@@ -207,6 +207,7 @@ var Utils = {
             }
             if (count == 0) {
                 clearInterval(outInterval);
+                if (window.location.href == 'http://192.168.11.90/project/macgic/index.html') return;
                 window.location.href = "http://192.168.11.90/project/macgic/index.html";
             }
         }, 1000);
@@ -214,7 +215,7 @@ var Utils = {
     /**
      * @断网提示
      */
-    noInterNet: function() {
+    noInterNet: function () {
         var domStr = '';
         domStr += '<div class="netFail animated zoomIn">';
         domStr += '<div class="net_fail">';
@@ -228,7 +229,7 @@ var Utils = {
         domStr += '</div>';
         $("body").append(domStr);
     },
-    
+
 }
 
 
@@ -236,11 +237,11 @@ var Utils = {
  * cache
  */
 var Local = {
-    get: function(key) {
+    get: function (key) {
         if (key) return JSON.parse(ls.getItem(key))
         return null
     },
-    set: function(key, val) {
+    set: function (key, val) {
         var setting = arguments[0]
         if (Object.prototype.toString.call(setting).slice(8, -1) === 'Object') {
             for (var i in setting) {
@@ -250,10 +251,10 @@ var Local = {
             ls.setItem(key, JSON.stringify(val))
         }
     },
-    remove: function(key) {
+    remove: function (key) {
         ls.removeItem(key)
     },
-    clear: function() {
+    clear: function () {
         ls.clear()
     }
 };
@@ -263,7 +264,7 @@ var Local = {
  */
 var BaseAjax = {
     //*****************
-    get: function(arg) {
+    get: function (arg) {
         $.ajax({
             type: "GET",
             url: arg.url || "",
@@ -272,19 +273,22 @@ var BaseAjax = {
             Headers: {
                 'Accept': 'application/json',
             },
-            beforeSend: function() {},
-            success: function(data) {
+            beforeSend: function () {
+            },
+            success: function (data) {
                 arg.success && arg.success(data);
             },
-            error: function(err) {
+            error: function (err) {
                 ("获取数据失败，请查看网络连接！！");
                 Utils.noInterNet();
                 arg.error && arg.error(err);
             },
-            complete: function(XMLHttpRequest, textStatus) { arg.complete && arg.complete() }
+            complete: function (XMLHttpRequest, textStatus) {
+                arg.complete && arg.complete()
+            }
         });
     },
-    post: function(arg) {
+    post: function (arg) {
         $.ajax({
             type: "POST",
             url: arg.url || "",
@@ -296,39 +300,41 @@ var BaseAjax = {
             dataType: "json", //"xml", "html", "script", "json", "jsonp", "text".
             processData: (arg.processData != undefined && arg.processData != null) ? Boolean(arg.processData) : true,
             cache: (arg.cache != undefined && arg.cache != null) ? Boolean(arg.cache) : true,
-            beforeSend: function() {},
-            success: function(data) {
+            beforeSend: function () {
+            },
+            success: function (data) {
                 arg.success && arg.success(data);
             },
-            error: function(err) {
+            error: function (err) {
                 alert("获取数据失败，请查看网络连接！！");
                 Utils.noInterNet();
                 arg.error && arg.error(err);
             },
-            complete: function(XMLHttpRequest, textStatus) { arg.complete && arg.complete() }
+            complete: function (XMLHttpRequest, textStatus) {
+                arg.complete && arg.complete()
+            }
         });
     }
 }
 
 Utils.noTouchtime(120);
 
-Utils.checkNetStatus(window, "offline", function() {
+Utils.checkNetStatus(window, "offline", function () {
     if (!window.alertCancel) Utils.noInterNet();
     window.sessionStorage.last_href = window.location.href;
 });
 
-Utils.checkNetStatus(window, "online", function() {
+Utils.checkNetStatus(window, "online", function () {
     // alert("重新上线");
     if (window.sessionStorage.last_href) window.location.href = window.sessionStorage.last_href;
 })
 
 
-
 var lastTouchEnd = 0;
-document.documentElement.addEventListener("touchstart", function() {
+document.documentElement.addEventListener("touchstart", function () {
     lastTouchEnd = Date.now();
 });
-document.documentElement.addEventListener("touchend", function(event) {
+document.documentElement.addEventListener("touchend", function (event) {
         var now = Date.now();
         if (now - lastTouchEnd <= 100) {
             event.preventDefault();
@@ -340,7 +346,7 @@ document.documentElement.addEventListener("touchend", function(event) {
 // 禁用鼠标右键、文字选中、多指
 document.oncontextmenu = new Function("event.returnValue=false;");
 document.onselectstart = new Function("event.returnValue=false;");
-document.documentElement.addEventListener("touchstart", function(event) {
+document.documentElement.addEventListener("touchstart", function (event) {
         if (event.touches.length > 1) {
             event.preventDefault();
         }
@@ -351,9 +357,9 @@ document.documentElement.addEventListener("touchstart", function(event) {
 
 if (!Utils.isMobile()) {
     //禁用双指缩放
-    window.addEventListener("touchmove", function(event) {
+    window.addEventListener("touchmove", function (event) {
         if (event.scale !== 1) {
             event.preventDefault();
         }
-    }, { passive: false });
+    }, {passive: false});
 }

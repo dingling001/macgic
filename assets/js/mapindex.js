@@ -1,7 +1,12 @@
 var VM = new Vue({
     el: "#main",
     data: {
-        maplist: []
+        maplist: [
+            '../assets/img/floor/3F.png',
+            '../assets/img/floor/2F.png',
+            '../assets/img/floor/1F.png',
+        ],
+        severimgshow:true
     },
     created: function () {
         var _ = this;
@@ -9,7 +14,7 @@ var VM = new Vue({
     },
     mounted: function () {
         var _ = this;
-        _.get_maps()
+        // _.get_maps()
     },
     methods: {
         get_maps: function () {
@@ -25,6 +30,9 @@ var VM = new Vue({
                 }
             });
         },
+        go_ex: function () {
+            window.location.reload();
+        }
 
     }
 });
