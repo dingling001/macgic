@@ -1,0 +1,262 @@
+.floor_name {
+    /*font-size: .6rem;*/
+    width: 1.78rem;
+    height: 1.13rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin: .74rem 0 .4rem .77rem;
+}
+
+.map {
+    height: 8.06rem;
+    background-color: #f2f2f3;
+}
+
+.exhibit_list {
+    margin: .5rem .5rem 0.1rem .5rem;
+    overflow: hidden;
+}
+
+.exhibit_list .exhibit_item {
+    width: 31%;
+    float: left;
+    margin: 0 2.5% 4% 0;
+    text-align: center;
+    height: .72rem;
+    line-height: .72rem;
+    font-size: .3rem;
+    font-weight: bold;
+    background-color: #1EFFF9;
+    border-radius: .36rem;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0 .1rem;
+    cursor: pointer;
+}
+
+.exhibit_list .exhibit_item:nth-child(3n) {
+    margin: 0 0 .4rem 0;
+}
+
+.exhibit_list .exhibit_item_active {
+    background-color: rgba(0, 43, 139, .9);
+}
+
+.cell {
+    width: 0.4rem;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+    left: -0.2rem;
+    cursor: pointer;
+}
+
+.cell .cell_icon.markerbg_1 {
+    /*background: url('../img/bg_marker1.png') top center / 100% 100% no-repeat;*/
+}
+
+.cell .bounce {
+    animation-duration: 1.5s
+}
+
+.cell_title {
+    color: #00E0E3;
+    font-size: .3rem;
+    text-align: center;
+    position: absolute;
+    width: 2.34rem;
+    /*max-width: 2.34rem;*/
+    /*min-width: 1rem;*/
+    height: auto;
+    padding: 0.1rem 0.27rem;
+    top: 1.1rem;
+    left: 82%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border-radius: 0.27rem;
+}
+
+.cell .cell_icon {
+    position: relative;
+    width: .84rem;
+    height: .97rem;
+}
+
+.cell .cell_icon img {
+    width: 100%;
+}
+
+.markerbg_2 {
+    font-size: .3rem;
+    color: #194096;
+    background-image: url("../../assets/img/ex_bg.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.markerbg_2 span {
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    line-height: .8rem;
+    display: inline-block;
+}
+
+.backbtn {
+    bottom: 33%;
+}
+
+.label {
+    background-color: #CCE4FF;
+    border-radius: 10px;
+    height: 4.58rem;
+    width: 91%;
+    margin: 0 auto;
+}
+
+.label .labelnamebox {
+    font-size: .36rem;
+    padding: .8rem 0 .3rem .3rem;
+}
+
+.label .labelfloor {
+    color: #1E58FF;
+    font-size: .3rem;
+    padding: 0 0 .3rem .66rem;
+    /*background-image: url("../../assets/img/pos.png");*/
+    /*background-size: auto 100% ;*/
+    /*background-position: .26rem ;*/
+    /*background-repeat: no-repeat;*/
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+    position: relative;
+}
+
+.labelfloor .img {
+    position: absolute;
+    left: .26rem;
+    top: 0;
+}
+
+.labelfloor span {
+    display: inline-block;
+    height: .36rem;
+}
+
+.label .labelcontent {
+    font-size: .3rem;
+    text-align: justify;
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    margin: .3rem;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.labelbtn {
+    width: 20%;
+    margin-right: .3rem;
+    float: right;
+    text-align: center;
+    background: #1EFFF9;
+    border-radius: 26px;
+    font-size: .3rem;
+    padding: .1rem 0;
+}
+
+.mold {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, .6);
+    z-index: 10000;
+}
+
+.mold .moldlist {
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 86%;
+    max-height: 9.94rem;
+    min-height: 5.4rem;
+    background-color:#CCE4FF;
+    overflow-y: scroll;
+    z-index: 1;
+}
+
+.moldlist::-webkit-scrollbar {
+    display: none;
+}
+
+.moldlist .molditem {
+    margin: 0 .28rem;
+    border-bottom: 1px solid #fff;
+    padding: .3rem 0;
+    overflow: hidden;
+    font-size: .3rem;
+}
+
+.molditem .moldimg {
+    width: 1.24rem;
+    height: 1.2rem;
+    overflow: hidden;
+    margin-right: 50px;
+    float: left;
+}
+
+.molditem .moldimg img {
+    width: 100%;
+}
+
+.molditem .moldname {
+    font-size: .36rem;
+    line-height: 1.8rem;
+    float: left;
+    width: 46%;
+}
+
+.molditem .moldtime {
+    font-size: .3rem;
+    color: #fff;
+    float: left;
+    height: 1.8rem;
+    vertical-align: middle;
+}
+.molditem .moldtime span{
+    display: inline-block;
+    height: 100%;
+}
+.molditem .moldtime img {
+    width: .73rem;
+    height: .73rem;
+}
+
+.closebox {
+    position: absolute;
+    bottom: 2.05rem;
+    width: 1.08rem;
+    height: 1.08rem;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.closebox img {
+    width: 100%;
+}

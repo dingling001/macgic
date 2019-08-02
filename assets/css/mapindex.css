@@ -9,12 +9,29 @@
 }
 
 .f_img .text {
-    font-size: .6rem;
+    /*font-size: .6rem;*/
     color: #001F80;
     /*font-weight: bold;*/
     position: absolute;
     right: 2%;
     top: 25%;
+    width: .72rem;
+    height: .72rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.f_img .text1 {
+    background-image: url("../../assets/img/floor/ft1.png");
+}
+
+.f_img .text2 {
+    background-image: url("../../assets/img/floor/ft2.png");
+}
+
+.f_img .text3 {
+    background-image: url("../../assets/img/floor/ft3.png");
 }
 
 .f_img img {
@@ -143,22 +160,7 @@
     width: 100%;
 }
 
-.backbtn {
-    position: fixed;
-    right: 0;
-    width: 26%;
-    text-align: center;
-    z-index: 999;
-    bottom: 40%;
-    height: 1.06rem;
-    background: #CCF8FF;
-    font-size: .34rem;
-    color: #002B8B;
-    font-weight: bold;
-    border-radius: 53px 0 0 53px;
-    line-height: 1.06rem;
-    cursor: pointer;
-}
+
 
 .animated {
     animation-duration: 2s !important;

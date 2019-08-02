@@ -224,7 +224,7 @@ body * {
     height: 100%;
     position: fixed;
     top: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: #fff;
     z-index: 10000;
 }
 
@@ -235,38 +235,42 @@ body * {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
+    width: 65%;
 }
 
 .net_fail .c1 {
-    height: 2.17rem;
+    /*height: 2.17rem;*/
     padding: 0.36rem;
     margin-bottom: 0.25rem;
-    background: url('../../public/img/bg_login_tips.png') center center / 100% 100% no-repeat;
+    background-color: rgba(0, 210, 255, .2);
+    border-radius: 10px;
+    /*background: url('../../assets/img/wuwangluo.png') center center / 100% 100% no-repeat;*/
 }
 
 .net_fail .c1 .icon_fail {
-    width: 0.75rem;
-    height: 0.75rem;
+    width: 2rem;
+    height: 2rem;
     margin: 0.1rem auto 0.1rem;
-    background: url('../../public/img/icon_net_fail.png') center center / 100% 100% no-repeat;
+    background: url('../../assets/img/wuwangluo.png') center center / 100% 100% no-repeat;
 }
 
 .net_fail .c1 p {
     font-size: 0.36rem;
     line-height: 1.5;
     text-align: center;
-    color: #FFB95F;
+    /*color: #FFB95F;*/
 }
 
 .net_fail .btn {
     background-color: #001F80;
-    width: 35%;
+    width: 2.46rem;
     margin: .73rem auto;
     height: .72rem;
     line-height: .72rem;
     font-size: .3rem;
     color: #fff;
     text-align: center;
+    border-radius: .36rem;
 }
 
 .net_fail a.c2 {
@@ -330,4 +334,29 @@ body * {
 
 #contWrap.swiper-container .swiper-scrollbar .swiper-scrollbar-drag {
     background-color: #C8A063;
+}
+
+.backbtn {
+    position: fixed;
+    right: 0;
+    width: 26%;
+    text-align: center;
+    z-index: 999;
+    bottom: 40%;
+    height: 1.06rem;
+    background: #CCF8FF;
+    font-size: .34rem;
+    color: #002B8B;
+    font-weight: bold;
+    border-radius: 53px 0 0 53px;
+    line-height: 1.06rem;
+    cursor: pointer;
+    background-image: url("../../assets/img/backbtn.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.backbtn:active {
+    /*opacity: .7;*/
 }

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <script src="../assets/js/resize.js"></script>
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/lib/animate.css">
+    <link rel="stylesheet" href="../assets/lib/swiper/swiper.min.css">
+    <link rel="stylesheet" href="../assets/lib/leaflet/leaflet.css">
+    <link rel="stylesheet" href="../assets/css/mapex.css">
+</head>
+<body>
+<div id="main" v-cloak class="main">
+    <div class="floor_name" :style="{backgroundImage:'url(../assets/img/floor/ft' + floor_id + '.png)'}"></div>
+    <div id="map" class="map"></div>
+    <div class="exhibit_list">
+        <span :class="['exhibit_item',ind==index?'exhibit_item_active':'']" v-for="(item,index) in exhibition_list"
+              :key="item.exhibition_id" @click="changeExhibit(index)">{{item.exhibition_name}}</span>
+    </div>
+    <div class="backbtn" @click="window.history.go(-1)"></div>
+    <div class="label" v-if="exhibit_list.length">
+        <div class="labelnamebox">{{exhibit_list[0].exhibit_name}}</div>
+        <div class="labelfloor"><span class="img"><img src="../assets/img/pos.png" alt=""></span> <span>{{map_name}} {{exhibition_name}}</span>
+        </div>
+        <div class="labelcontent" v-html="exhibit_list[0].desc"></div>
+        <div class="labelbtn">查看详情</div>
+    </div>
+    <div class="mold animated fadeIn" v-show="showmore">
+        <div class="moldlist animated zoomIn">
+            <div class="molditem animated bounceInDown">
+                <div class="moldimg"><img src="" alt=""></div>
+                <div class="moldname">热气球实验</div>
+                <div class="moldtime">
+                    <span>03:54</span>
+                    <span><img src="../assets/img/paly.png" alt=""></span>
+                </div>
+            </div>
+        </div>
+        <div class="closebox" @click="showmore=false"><img src="../assets/img/close.png" alt=""></div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../assets/lib/jquery.min.3.3.1.js"></script>
+<script src="../assets/lib/vue.min.2.2.2.js"></script>
+<script src="../assets/lib/leaflet/leaflet.js"></script>
+<script src="../assets/lib/swiper/swiper.min.js"></script>
+<script src="../assets/js/common.js"></script>
+<script src="../assets/js/mapex.js"></script>

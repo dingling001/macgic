@@ -1,5 +1,6 @@
 var baseUrl = "http://192.168.10.158:8316/api/"; //嘉善测试平台
 // var baseUrl = "http://jiashan.museum-edu.cn"; //线上测试平台
+var baseImgUrl='http://192.168.10.158:8316'
 var ls = window.localStorage;
 var weatherkey = '4cb210538d2c4a27ae661140753c71d0';//天气key
 var Utils = {
@@ -223,8 +224,8 @@ var Utils = {
         domStr += '<div class="icon_fail"></div>';
         domStr += '<p class="p1">很抱歉，网络走丢了~</p>';
         domStr += '<p class="p2">请刷新试试</p>';
-        domStr += '<div class="btn" onclick="window.location.reload()">刷新</div>';
         domStr += '</div>';
+        domStr += '<div class="btn" onclick="window.location.reload()">刷新</div>';
         domStr += '</div>';
         domStr += '</div>';
         $("body").append(domStr);

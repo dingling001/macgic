@@ -6,7 +6,7 @@ var VM = new Vue({
             '../assets/img/floor/2F.png',
             '../assets/img/floor/1F.png',
         ],
-        severimgshow:true
+        severimgshow: true
     },
     created: function () {
         var _ = this;
@@ -14,7 +14,7 @@ var VM = new Vue({
     },
     mounted: function () {
         var _ = this;
-        // _.get_maps()
+        _.get_maps()
     },
     methods: {
         get_maps: function () {
@@ -32,7 +32,15 @@ var VM = new Vue({
         },
         go_ex: function () {
             window.location.reload();
-        }
+        },
+        goex(index) {
+            var _ = this;
+            console.log(_.maplist)
+            if (_.maplist.length > 0) {
+                window.location.href = './mapex.html?floor_id=' + _.maplist[index].floor_id
+            } else {
 
+            }
+        }
     }
 });
