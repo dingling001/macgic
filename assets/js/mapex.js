@@ -14,7 +14,13 @@ var VM = new Vue({
         exhibition_name: '',
         exhibit_list: [],
         ind: 0,
-        showmore: false
+        showmore: false,
+        inds: -1,
+        currSong: '',
+        p_width: 0,
+        is_playing: false,
+        audio_time: '00:00',
+        cur: 0
     },
     created: function () {
         var _ = this;
@@ -75,7 +81,7 @@ var VM = new Vue({
             });
         },
         // 跳转展品详情
-        godetail(id) {
+        godetail: function (id) {
             var _ = this;
             // exhibit_info
             window.location.href = './mapex.html?floor_id=' + _.maplist[index].floor_id
@@ -128,7 +134,7 @@ var VM = new Vue({
                 var exhibitLen = d.exhibit_list.length;
                 if (exhibitLen == 1) {
                     var o = d.exhibit_list[0];
-                    if(i==0){
+                    if (i == 0) {
                         markerContent = `<div class="cell " data-id="${o.exhibit_id}" data-len="1" data-i="${i}" >
                                         <div class="cell_icon markerbg_1 animated">
                                             <img src="${baseImgUrl}${o.icon}" alt="" class="animated bounce infinite"/>
@@ -136,7 +142,7 @@ var VM = new Vue({
                                         <div class="cell_title">${o.exhibit_name}</div>
                                     </div>`;
                         popupContent = v.renderPopup1(d.exhibit_list);
-                    }else{
+                    } else {
                         markerContent = `<div class="cell " data-id="${o.exhibit_id}" data-len="1" data-i="${i}" >
                                         <div class="cell_icon markerbg_1 animated">
                                             <img src="${baseImgUrl}${o.icon}" alt="" />
@@ -186,8 +192,11 @@ var VM = new Vue({
                         var img = target._icon.children[0].children[0];
                         $('body').find('.bounce').removeClass('bounce infinite');
                         $(img).addClass('bounce infinite');
-                        console.log(target._icon.children[0].children[0])
+                        // console.log(target._icon.children[0].children[0])
                         v.exhibition_name = v.lists[index].exhibition_name;
+                        var _audio = document.getElementById('audio');
+                        _audio.load();
+                        v.pause_audio();
                         v.exhibit_list = v.lists[index].exhibit_list;
                         if (len == 1) {
                         } else {
@@ -196,34 +205,6 @@ var VM = new Vue({
 
                     });
             }
-        },
-        initSwiper1: function () {
-            var swiper1 = new Swiper('#mySwiper1', {
-                loop: false,
-                slidesPerView: 1,
-                centeredSlides: true,
-                observer: true,
-                observerParents: true,
-                navigation: {
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
-                },
-                on: {
-                    init: function () {
-                        // alert('当前的slide序号是' + this.activeIndex);
-                        this.emit('transitionEnd'); //在初始化时触发一次transitionEnd事件
-                    },
-                    transitionEnd: function () {
-                    },
-                    slideChangeTransitionEnd: function () {
-                        // if (this.isEnd) {
-                        //     this.navigation.$nextEl.css('display', 'none');
-                        // } else {
-                        //     this.navigation.$nextEl.css('display', 'block');
-                        // }
-                    },
-                },
-            });
         },
         renderPopup1: function (list) {
             var str = "";
@@ -241,26 +222,101 @@ var VM = new Vue({
             }
             return str;
         },
-        renderPopup2: function (list) {
-            var str = "";
-            for (var j in list) {
-                str += `<div class="swiper-slide">
-                            <div class="cell">
-                                <div class="img">
-                                    <img src="${baseImgUrl}${list[j].icon}" alt="" />
-                                </div>
-                                <div class="txt">
-                                    <div class="title">${list[j].exhibit_name}</div>
-                                    <div class="brief">${list[j].desc}</div>
-                                    <div class="swiper_num">
-                                        <span class="curT">${parseInt(j) + 1}</span>/<span>${list.length}</span>
-                                    </div>
-                                    <div data_id="${list[j].exhibit_id}" class="enter_btn">查看详情</div>
-                                </div>
-                            </div>
-                        </div>`;
+        // 播放音频
+        play_audio: function (index) {
+            var that = this;
+            var elist = that.exhibit_list;
+            that.currSong = elist[index].audio;
+            // alert(JSON.stringify(that.currSong))
+            if (Object.keys(that.currSong).length == 0) {
+                alert('暂不可播放')
+            } else {
+                elist[index].isPlaying = false;
+                that.inds = index;
+                // that.proShow = 0;
+                // that.indexSong = 0;
+                that.getAddlisten()
+                that.$nextTick(() => {
+                    this.playAudio()
+                });
             }
-            return str;
         },
+        // 获取播放时间
+        onloadedmetadata: function (res) {
+            var that = this;
+            var cur = res.target.currentTime;
+            var dur = res.target.duration;
+            cur = dur - cur;
+            that.dur = cur;
+            var elist = that.exhibit_list;
+            // that.p_width = 100 - (cur / dur) * 100
+            if (cur > 0 && that.inds >= 0) {
+                elist[that.inds].audio_time = Utils.timeFormat(dur)
+                // alert(that.audio_time)
+            } else {
+                console.log(dur)
+                // clearInterval(interval);
+            }
+        },
+        // 播放结束
+        end_audio: function () {
+            var _audio = document.getElementById('audio');
+            _audio.load()
+            _audio.pause();
+            var that = this;
+            that.inds = -1;
+        },
+        // 关闭
+        colseauido: function () {
+            var that = this;
+            that.showmore = false
+            that.inds = -1;
+            var _audio = document.getElementById('audio');
+            _audio.pause();
+            this.$refs.audio.load();
+        },
+        // 播放监听
+        getAddlisten: function () {
+            var that = this;
+            var _audio = document.getElementById('audio');
+            _audio.addEventListener("play", function () {
+                //在这里写代码
+                that.is_playing = true;
+            });
+        },
+        // 播放
+        playAudio: function () {
+            // ios不能自动加载，导致首次加载不能自动读取最大时间,故做此loading弹层提示优化
+            var _audio = document.getElementById('audio');
+            _audio.play();
+            // this.is_pause = false;
+        },
+        // 暂停
+        pause_audio: function (index) {
+            var that = this;
+            that.$refs.audio.pause();
+            that.inds = -1;
+            // console.log( elist[index].isPlaying)
+            // that.indexSong = index;
+        },
+        // 播放进度条
+        ontimeupdate: function () {
+            var that = this;
+            var _audio = document.getElementById('audio');
+            // alert(myaudio.duration);
+            var dur = _audio.duration;
+            var cur = _audio.currentTime;
+            var elist = that.exhibit_list;
+            if (that.inds > 0 && dur && cur) {
+                elist[that.inds].audio_time = Utils.timeFormat(dur - cur);
+            }
+        },
+        // 去详情页
+        go_detail: function () {
+            var _ = this;
+            var ind = _.inds == -1 ? 0:_.inds;
+            var id = _.exhibit_list[ind].exhibit_id;
+            window.location.href = './mapd.html?exhibit_id=' + id;
+        }
     }
 });

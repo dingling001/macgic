@@ -1,6 +1,6 @@
 var baseUrl = "http://192.168.10.158:8316/api/"; //嘉善测试平台
 // var baseUrl = "http://jiashan.museum-edu.cn"; //线上测试平台
-var baseImgUrl='http://192.168.10.158:8316'
+var baseImgUrl = 'http://192.168.10.158:8316'
 var ls = window.localStorage;
 var weatherkey = '4cb210538d2c4a27ae661140753c71d0';//天气key
 var Utils = {
@@ -34,6 +34,15 @@ var Utils = {
     },
     isArray: function (o) {
         return Object.prototype.toString.call(o) == '[object Array]';
+    },
+    /*时间格式化 mm:ss*/
+    timeFormat: function (t) {
+        t = Math.ceil(t);
+        var minute = parseInt(t / 60, 10);
+        var second = parseInt(t % 60, 10);
+        minute = (minute < 10) ? '0' + minute : minute;
+        second = (second < 10) ? '0' + second : second;
+        return minute + ':' + second;
     },
     /**
      * @手势滑动
@@ -230,9 +239,7 @@ var Utils = {
         domStr += '</div>';
         $("body").append(domStr);
     },
-
-}
-
+};
 
 /**
  * cache
@@ -271,7 +278,7 @@ var BaseAjax = {
             url: arg.url || "",
             data: arg.data || "",
             async: (arg.async != undefined || arg.async != null) ? Boolean(arg.async) : true,
-            Headers: {
+            headers: {
                 'Accept': 'application/json',
             },
             beforeSend: function () {

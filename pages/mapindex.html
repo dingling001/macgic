@@ -15,7 +15,7 @@
 <!--animated   flash infinite-->
 <body>
 <div id="main">
-    <div v-show="severimgshow" class="animated bounceInLeft">
+    <div v-show="severimgshow" class="animated slideInLeft">
         <div class="fbox">
             <div class="f_img floor1" @click="goex(2)">
                 <img src="../assets/img/floor/3F.png" alt="">
@@ -51,8 +51,9 @@
             </a>
         </div>
     </div>
-    <div class="severimg animated bounceInRight" v-show="!severimgshow"><img src="../assets/img/floor/severimg.png"
-                                                                             alt=""></div>
+    <div class="severimg animated slideInRight" v-show="!severimgshow">
+        <img src="../assets/img/floor/severimg.png" alt="">
+    </div>
     <div class="backbtn" v-show="severimgshow" @click="window.history.go(-1)"></div>
     <div class="backbtn" v-show="!severimgshow" @click="severimgshow=true"></div>
 </div>

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <script src="../assets/js/resize.js"></script>
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/lib/animate.css">
+    <link rel="stylesheet" href="../assets/lib/swiper/swiper.min.css">
+    <link rel="stylesheet" href="../assets/css/mapd.css">
+</head>
+<!--animated   flash infinite-->
+<body>
+<div id="main">
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="item in exhibit_info.exhibit_imgs"><img :src="baseImgUrl+item" alt="">
+            </div>
+        </div>
+    </div>
+    <div class="exname">{{exhibit_info.exhibit_name}}</div>
+    <div class="sharebox">
+        <div class="shareitem">
+            <img src="../assets/img/scan.png" alt="">
+            <span>{{exhibit_info.look_num}}</span>
+        </div>
+        <div class="shareitem">
+            <img src="../assets/img/collect.png" alt="">
+            <span>{{exhibit_info.collection_num}}</span>
+        </div>
+        <div class="shareitem">
+            <img src="../assets/img/share.png" alt="">
+            <span>分享</span>
+        </div>
+    </div>
+    <div class="controlbox">
+
+    </div>
+    <div class="coontentbox" v-html="exhibit_info.content"></div>
+    <div class="backbtn"></div>
+</div>
+</body>
+</html>
+<script src="../assets/lib/jquery.min.3.3.1.js"></script>
+<script src="../assets/lib/vue.min.2.2.2.js"></script>
+<script src="../assets/lib/swiper/swiper.min.js"></script>
+<script src="../assets/js/common.js"></script>
+<script src="../assets/js/mapd.js"></script>

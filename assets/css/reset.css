@@ -360,3 +360,6 @@ body * {
 .backbtn:active {
     /*opacity: .7;*/
 }
+*::-webkit-scrollbar{
+    display: none;
+}

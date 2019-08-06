@@ -23,26 +23,82 @@
               :key="item.exhibition_id" @click="changeExhibit(index)">{{item.exhibition_name}}</span>
     </div>
     <div class="backbtn" @click="window.history.go(-1)"></div>
-    <div class="label" v-if="exhibit_list.length">
+    <div class="label" v-if="exhibit_list.length" >
         <div class="labelnamebox">{{exhibit_list[0].exhibit_name}}</div>
         <div class="labelfloor"><span class="img"><img src="../assets/img/pos.png" alt=""></span> <span>{{map_name}} {{exhibition_name}}</span>
         </div>
         <div class="labelcontent" v-html="exhibit_list[0].desc"></div>
-        <div class="labelbtn">查看详情</div>
+        <div class="labelbtn" @click="go_detail">查看详情</div>
+        <div class="palybox">
+            <em class="pause_box" v-if="inds==0" @click.stop="pause_audio(0)">
+                <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="114px" height="114px"
+                     viewBox="0 0 12 12" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                   <rect x="0" y="0" width="2" rx="0.5" ry="0.5" height="5" fill="#1EFFF9">
+               <animateTransform attributeType="xml" attributeName="transform" type="scale" values="1,1; 1,3; 1,1"
+                                 begin="0s" dur="0.6s" repeatCount="indefinite"></animateTransform>
+                 </rect>
+                    <rect x="3" y="0" width="2" rx="0.5" ry="0.5" height="5" fill="#1EFFF9">
+                    <animateTransform attributeType="xml" attributeName="transform" type="scale" values="1,1; 1,3; 1,1"
+                                      begin="0.2" dur="0.6s" repeatCount="indefinite"></animateTransform>
+                  </rect>
+                    <rect x="6" y="0" rx="0.5" width="2" ry="0.5" height="5" fill="#1EFFF9">
+              <animateTransform attributeType="xml" attributeName="transform" type="scale" values="1,1; 1,3; 1,1"
+                                begin="0.3s" dur="0.6s" repeatCount="indefinite"></animateTransform>
+               </rect>
+                    <rect x="9" y="0" rx="0.5" width="2" ry="0.5" height="5" fill="#1EFFF9">
+              <animateTransform attributeType="xml" attributeName="transform" type="scale" values="1,1; 1,3; 1,1"
+                                begin="0.1s" dur="0.6s" repeatCount="indefinite"></animateTransform>
+               </rect>
+             </svg>
+            </em>
+            <img src="../assets/img/paly.png" alt="" v-else @click.stop="play_audio(0)">
+        </div>
     </div>
     <div class="mold animated fadeIn" v-show="showmore">
         <div class="moldlist animated zoomIn">
-            <div class="molditem animated bounceInDown">
-                <div class="moldimg"><img src="" alt=""></div>
-                <div class="moldname">热气球实验</div>
-                <div class="moldtime">
-                    <span>03:54</span>
-                    <span><img src="../assets/img/paly.png" alt=""></span>
+            <div :class="['molditem animated bounceInDown  delay-'+index+'s',inds==index?'molditemactive':'']"
+                 v-for="(item,index) in exhibit_list">
+                <div class="moldimg"><img :src="baseImgUrl+item.list_img" alt=""></div>
+                <div class="moldname">{{item.exhibit_name}}</div>
+                <div class="moldtime" v-if="item.audio">
+                    <span>{{item.audio_time}}</span>
+                    <span>
+                          <em class="pause_box" v-if="inds==index" @click="pause_audio(index)">
+                              <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                                   xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="90px" height="44px"
+                                   viewBox="0 0 12 12" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                   <rect x="0" y="0" width="2" height="5" fill="#1EFFF9">
+               <animateTransform attributeType="xml" attributeName="transform" type="scale" values="1,1; 1,3; 1,1"
+                                 begin="0s" dur="0.6s" repeatCount="indefinite"/>
+                 </rect>
+                <rect x="5" y="0" width="2" height="5" fill="#1EFFF9">
+                    <animateTransform attributeType="xml" attributeName="transform" type="scale" values="1,1; 1,3; 1,1"
+                                      begin="0.2" dur="0.6s" repeatCount="indefinite"/>
+                  </rect>
+                <rect x="10" y="0" width="2" height="5" fill="#1EFFF9">
+              <animateTransform attributeType="xml" attributeName="transform" type="scale" values="1,1; 1,3; 1,1"
+                                begin="0.3s" dur="0.6s" repeatCount="indefinite"/>
+               </rect>
+                   <rect x="14" y="0" width="2" height="5" fill="#1EFFF9">
+              <animateTransform attributeType="xml" attributeName="transform" type="scale" values="1,1; 1,3; 1,1"
+                                begin="0.1s" dur="0.6s" repeatCount="indefinite"/>
+               </rect>
+             </svg>
+                      </em>
+                        <img src="../assets/img/paly.png" alt="" v-else @click="play_audio(index)">
+                    </span>
                 </div>
             </div>
         </div>
-        <div class="closebox" @click="showmore=false"><img src="../assets/img/close.png" alt=""></div>
+        <div class="closebox" @click="colseauido"><img src="../assets/img/close.png" alt=""></div>
     </div>
+    <audio ref="audio" id="audio" preload="auto" :src="currSong" @timeupdate="ontimeupdate"
+           @loadedmetadata="onloadedmetadata" @ended="end_audio">
+    </audio>
+    <!--    <audio ref="audio" id="audio" preload="auto" src="./ogg.ogg" @timeupdate="ontimeupdate"-->
+    <!--           @loadedmetadata="onloadedmetadata" @ended="end_audio" >-->
+    <!--    </audio>-->
 </div>
 </body>
 </html>
