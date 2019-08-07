@@ -1,0 +1,99 @@
+.c1 .p1 {
+    font-size: .3rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+#main, body, html {
+    height: 100%;
+
+}
+
+body {
+    padding: 0 .5rem;
+    overflow-y: scroll;
+}
+
+.clist {
+    border-left: 4px dashed #005381;
+    height: 100%;
+}
+
+.todayc {
+    position: relative;
+    font-size: 0;
+    padding-top: 1.88rem;
+}
+
+.todayc .dian {
+    position: absolute;
+    z-index: 1;
+    left: -.14rem;
+    top: 1.88rem;
+    width: .24rem;
+}
+
+.todayc .tag {
+    border-radius: 0 .24rem .24rem .24rem;
+    font-size: .24rem;
+    background-color: #66C8FF;
+    color: #fff;
+    height: .48rem;
+    line-height: .48rem;
+    display: inline-block;
+    width: 2.02rem;
+    text-align: center;
+    margin-left: .3rem;
+}
+
+.zankai {
+    position: absolute;
+    z-index: 1;
+    right: 0;
+    top: 1.88rem;
+    font-size: .34rem;
+    color: #005381;
+    font-weight: bold;
+}
+
+.hisc {
+    margin-top: 0.88rem;
+    padding: 0;
+}
+
+.hisc .dian {
+    top: 0;
+}
+
+.hisc .zankai {
+    width: .48rem;
+    top: 0;
+    height: .48rem;
+}
+
+.hisc .zankai img {
+    width: .48rem;
+}
+
+.imglist {
+    overflow: hidden;
+    margin-top: .52rem;
+}
+
+.imglist .imgitem {
+    width: 1.33rem;
+    height: 1.28rem;
+    line-height: 1.28rem;
+    text-align: center;
+    margin: 0 0 .34rem .27rem;
+    float: left;
+}
+
+.todayc .imglist .imgitem img {
+    width: 100%;
+    vertical-align: middle;
+}
+
+.icon_out {
+    background: url('../../assets/img/shanchu.png') center center / 100% 100% no-repeat;
+}

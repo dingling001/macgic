@@ -38,8 +38,8 @@ var Utils = {
     /*时间格式化 mm:ss*/
     timeFormat: function (t) {
         t = Math.ceil(t);
-        var minute = parseInt(t / 60, 10);
-        var second = parseInt(t % 60, 10);
+        var minute = Math.round(t / 60, 10);
+        var second = Math.round(t % 60, 10);
         minute = (minute < 10) ? '0' + minute : minute;
         second = (second < 10) ? '0' + second : second;
         return minute + ':' + second;
@@ -287,7 +287,7 @@ var BaseAjax = {
                 arg.success && arg.success(data);
             },
             error: function (err) {
-                ("获取数据失败，请查看网络连接！！");
+                // ("获取数据失败，请查看网络连接！！");
                 Utils.noInterNet();
                 arg.error && arg.error(err);
             },

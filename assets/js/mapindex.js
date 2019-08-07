@@ -6,7 +6,8 @@ var VM = new Vue({
             '../assets/img/floor/2F.png',
             '../assets/img/floor/1F.png',
         ],
-        severimgshow: true
+        severimgshow: true,
+        pos: 0
     },
     created: function () {
         var _ = this;
@@ -17,6 +18,7 @@ var VM = new Vue({
         _.get_maps()
     },
     methods: {
+        // 获取楼层id
         get_maps: function () {
             var _ = this;
             BaseAjax.get({
@@ -30,9 +32,11 @@ var VM = new Vue({
                 }
             });
         },
+        // 去对应的展厅
         go_ex: function () {
             window.location.reload();
         },
+        // 去我的楼层
         goex(index) {
             var _ = this;
             console.log(_.maplist)
@@ -40,6 +44,13 @@ var VM = new Vue({
                 window.location.href = './mapex.html?floor_id=' + _.maplist[index].floor_id
             } else {
 
+            }
+        },
+        // 我的位置
+        mypos: function () {
+            var _ = this;
+            if (Utils.getUrlKey('pos')) {
+                _.pos = Utils.getUrlKey('pos');
             }
         }
     }

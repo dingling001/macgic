@@ -15,38 +15,85 @@
 </head>
 <!--animated   flash infinite-->
 <body>
-<div id="main">
-    <div class="swiper-container">
+<div id="main" v-cloak>
+    <div class="swiper-container topswiper">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" v-for="item in exhibit_info.exhibit_imgs"><img :src="baseImgUrl+item" alt="">
+            <div class="swiper-slide animated zoomIn" v-for="item in exhibit_info.exhibit_imgs"><img
+                    :src="baseImgUrl+item" alt="">
             </div>
         </div>
     </div>
     <div class="exname">{{exhibit_info.exhibit_name}}</div>
-    <div class="sharebox">
+    <div class="sharebox ">
         <div class="shareitem">
             <img src="../assets/img/scan.png" alt="">
             <span>{{exhibit_info.look_num}}</span>
         </div>
-        <div class="shareitem">
-            <img src="../assets/img/collect.png" alt="">
+        <div class="shareitem" @click="_do_like">
+            <img :src="exhibit_info.is_collection==1? '../assets/img/collect1.png':'../assets/img/collect.png'" alt="">
             <span>{{exhibit_info.collection_num}}</span>
         </div>
-        <div class="shareitem">
+        <div class="shareitem" @click="isshowlayer=true">
             <img src="../assets/img/share.png" alt="">
             <span>分享</span>
         </div>
     </div>
-    <div class="controlbox">
-
+    <div class="controlbox  ">
+        <div class="cimg animated zoomIn" @click="toggleplay"><img
+                :src="playing?'../assets/img/paused.png':'../assets/img/paly.png'" alt=""></div>
+        <div class="curtime">{{currentTime}}</div>
+        <div class="cprocessbox">
+            <div class="cprocess">
+                <div class="ctrag" :style="{width: posprcent}"></div>
+                <img src="../assets/img/processbtn.png" alt="" :style="{left: posleft}">
+            </div>
+        </div>
+        <div class="curtime">{{maxTime}}</div>
     </div>
-    <div class="coontentbox" v-html="exhibit_info.content"></div>
+    <audio :src="baseImgUrl+exhibit_info.audio" preload="auto" id="audio" ref="audio" @timeupdate="onTimeupdate"
+           @loadedmetadata="onLoadedmetadata" @ended="onEnded">
+    </audio>
+    <div class="coontentbox">
+        <div class="swiper-container" id="contWrap">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="desc" v-html="exhibit_info.content">
+
+                    </div>
+                </div>
+            </div>
+            <!-- Add Scroll Bar -->
+            <div class="swiper-scrollbar"></div>
+        </div>
+    </div>
+    <div class="mold animated fadeIn" v-show="isshowlayer" @click="isshowlayer=false">
+        <div class="codeitem animated zoomIn">
+            <span>打开手机扫描二维码，</span>
+            <span>向朋友们分享精美展品吧！</span>
+            <div class="qrcode" id="qrcode">
+                <div class="shareimg">
+                    <img :src="baseImgUrl+exhibit_info.exhibit_default_img" alt="">
+                </div>
+            </div>
+            <div class="sharebtn" @click.stop="isshowlayer=false">确定</div>
+        </div>
+    </div>
     <div class="backbtn" @click="window.history.go(-1)"></div>
+    <div class="netFail animated zoomIn" v-show="nologin">
+        <div class="net_fail ">
+            <div class="c1">
+                <div class="nologin"></div>
+                <p class="p1">您尚未登录</p>
+            </div>
+            <div class="btn" @click="nologin=false">确定</div>
+        </div>
+    </div>
 </div>
 </body>
 </html>
 <script src="../assets/lib/jquery.min.3.3.1.js"></script>
 <script src="../assets/lib/vue.min.2.2.2.js"></script>
 <script src="../assets/lib/swiper/swiper.min.js"></script>
+<script src="../assets/lib/qrcode.js"></script>
 <script src="../assets/js/common.js"></script>
 <script src="../assets/js/mapd.js"></script>

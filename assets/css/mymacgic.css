@@ -1,0 +1,129 @@
+.mytopnav {
+    /*width: 58%;*/
+    padding: 5.52rem 2.36rem 0 2.36rem;
+    overflow: hidden;
+}
+
+.mytopnav .imgl {
+    float: left;
+    width: 2.36rem;
+    text-align: center;
+    font-size: .38rem;
+    font-weight: bold;
+    color: #001F80;
+    /*height: 2.36rem;*/
+}
+
+.mytopnav .imgr {
+    float: right;
+    width: 2.36rem;
+    text-align: center;
+    font-size: .38rem;
+    font-weight: bold;
+    color: #001F80;
+    /*height: 2.36rem;*/
+}
+
+.mytopnav img {
+    width: 100%;
+}
+
+.tipstitle {
+    margin: 1.2rem 1rem 0 1rem;
+    font-size: .3rem;
+    padding: 0 .4rem;
+}
+
+.tipstitle img {
+    width: .24rem;
+    margin-right: .25rem;
+}
+
+.tipstitle span {
+    display: inline-block;
+}
+
+.tipscontent {
+    width: 83%;
+    margin: .1rem auto;
+    background-color: #E0E0E0;
+    padding: .5rem;
+    font-size: .34rem;
+    border-radius: .1rem;
+    font-weight: bold;
+}
+
+.tipscontent ul li {
+    line-height: .6rem;
+}
+
+.dabi {
+    width: 32%;
+    margin: .4rem auto;
+}
+
+.dabi img {
+    width: 100%;
+    /*animation: myfirst 1s infinite*/
+    animation: jumpdown .3s ease-in infinite alternate;
+}
+
+.backbtn {
+    bottom: 50%;
+}
+
+@keyframes jumpdown {
+    from {
+        transform: translateY(-40px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.loginbox {
+    margin: 5.71rem 0 0 0;
+}
+
+.loginbox .headimg {
+    width: 1.85rem;
+    height: 1.85rem;
+    margin: 0 auto;
+}
+
+.loginbox .headimg img {
+    width: 100%;
+}
+
+.loginname {
+    text-align: center;
+    padding: .2rem 0;
+    font-size: .38rem;
+    font-weight: bold;
+    color: #001F80;
+}
+
+.loginout {
+    width: 19%;
+    margin: .25rem auto;
+    text-align: center;
+    height: .67rem;
+    line-height: .67rem;
+    font-size: .38rem;
+    color: #fff;
+    font-weight: bold;
+    background-color: #001F80;
+    border-radius: .34rem;
+}
+.logoutEle {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 500;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+

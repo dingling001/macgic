@@ -253,7 +253,12 @@ body * {
     margin: 0.1rem auto 0.1rem;
     background: url('../../assets/img/wuwangluo.png') center center / 100% 100% no-repeat;
 }
-
+.net_fail .c1 .nologin {
+    width: 2rem;
+    height: 2rem;
+    margin: 0.1rem auto 0.1rem;
+    background: url('../../assets/img/weidengluchengong.png') center center / 100% 100% no-repeat;
+}
 .net_fail .c1 p {
     font-size: 0.36rem;
     line-height: 1.5;
@@ -280,8 +285,45 @@ body * {
     margin: 0 auto;
     background: url('../../public/img/btn_refresh.png') center center / 100% 100% no-repeat;
 }
-
-
+.icon_outbox  .c1 .icon_out {
+    width: 2rem;
+    height: 2rem;
+    margin: 0.1rem auto 0.1rem;
+    background: url('../../assets/img/tuichu.png') center center / 100% 100% no-repeat;
+}
+.icon_loginbox .c1 .icon_login {
+    width: 2rem;
+    height: 2rem;
+    margin: 0.1rem auto 0.1rem;
+    background: url('../../assets/img/ok.png') center center / 100% 100% no-repeat;
+    font-weight: bold;
+}
+.net_fail .c1 .nodata {
+    width: 2rem;
+    height: 2rem;
+    margin: 0.1rem auto 0.1rem;
+    background: url('../../assets/img/kong.png') center center / 100% 100% no-repeat;
+    font-weight: bold;
+}
+.logoutbox{
+overflow: hidden;
+    padding:  0 .18rem;
+}
+.logoutbox .btnl{
+    float: left;
+    background-color: #000000;
+    width: 2.46rem;
+    margin: .73rem auto;
+    height: .72rem;
+    line-height: .72rem;
+    font-size: .3rem;
+    color: #fff;
+    text-align: center;
+    border-radius: .36rem;
+}
+.logoutbox .btn{
+    float: right;
+}
 /*无数据提示*/
 .no_data {
     width: 4.44rem;
@@ -312,30 +354,6 @@ body * {
 /* 触摸屏内容手势滑动 */
 #contWrap {
 }
-
-#contWrap.swiper-container {
-    width: 100%;
-    height: 100%;
-}
-
-#contWrap.swiper-container .swiper-wrapper .swiper-slide {
-    font-size: 18px;
-    height: auto;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 20px;
-}
-
-#contWrap.swiper-container .swiper-scrollbar {
-    background: rgba(0, 0, 0, 0);
-    /*top: 0;
-    right: 0;*/
-}
-
-#contWrap.swiper-container .swiper-scrollbar .swiper-scrollbar-drag {
-    background-color: #C8A063;
-}
-
 .backbtn {
     position: fixed;
     right: 0;
@@ -355,6 +373,7 @@ body * {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    display: block;
 }
 
 .backbtn:active {

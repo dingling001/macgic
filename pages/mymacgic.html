@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <script src="../assets/js/resize.js"></script>
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/lib/animate.css">
+    <link rel="stylesheet" href="../assets/lib/swiper/swiper.min.css">
+    <link rel="stylesheet" href="../assets/lib/leaflet/leaflet.css">
+    <link rel="stylesheet" href="../assets/css/mymacgic.css">
+</head>
+<body>
+<div id="main" v-cloak class="main">
+    <div class="mytopnav">
+        <div class="imgl animated bounceInLeft" @click="go_his">
+            <img src="../assets/img/mcollect.png" alt="">
+            <div>游览历史</div>
+        </div>
+        <div class="imgr animated bounceInRight" @click="go_collect">
+            <img src="../assets/img/mhistroy.png" alt="">
+            <div>我的收藏</div>
+        </div>
+    </div>
+    <div v-if="islogin">
+        <div class="tipstitle">
+            <img src="../assets/img/xiaobi.png" alt="" class="animated flash infinite slower">
+            <span class="animated bounceInRight">绑定智慧笔，体验更精彩</span>
+        </div>
+        <div class="tipscontent animated slideInUp">
+            <div>操作说明：</div>
+            <ul>
+                <li> 1.使用智慧笔触发屏幕下方NFC标签。</li>
+                <li> 2.智慧笔与屏幕进行绑定登录。</li>
+                <li> 3.即可查看您的游览历史和我的收藏，增强互动体验。</li>
+            </ul>
+        </div>
+        <div class="dabi animated fadeInDown"><img src="../assets/img/dabi.png" alt="" class=""></div>
+        <!--    animated bounce infinite slow-->
+    </div>
+    <div v-else class="loginbox">
+        <div class="headimg"><img src="../assets/img/headimg.png" alt=""></div>
+        <div class="loginname">{{name}}，等你好久了~</div>
+        <div class="loginout" @click="isout=true">退出</div>
+    </div>
+    <div class="netFail animated zoomIn" v-show="isout">
+        <div class="net_fail icon_outbox">
+            <div class="c1">
+                <div class="icon_out"></div>
+                <p class="p1">您确认要退出登录吗？</p>
+            </div>
+            <div class="logoutbox">
+                <div class="btnl" @click="isout=false">取消</div>
+                <div class="btn" @click="loginOut">确定</div>
+            </div>
+        </div>
+    </div>
+    <div class="netFail animated zoomIn" v-show="logining">
+        <div class="net_fail icon_loginbox">
+            <div class="c1">
+                <div class="icon_login"></div>
+                <p class="p1">{{logintext}}</p>
+            </div>
+            <div class="btn" @click="logining=false">确定</div>
+        </div>
+    </div>
+    <a class="backbtn animated bounceInDown"  href="../index.html"></a>
+</div>
+</body>
+</html>
+<script src="../assets/lib/jquery.min.3.3.1.js"></script>
+<script src="../assets/lib/vue.min.2.2.2.js"></script>
+<script src="../assets/js/common.js"></script>
+<script src="../assets/js/mymacgic.js"></script>

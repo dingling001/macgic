@@ -16,6 +16,7 @@
 .exhibit_list {
     margin: .5rem .5rem 0.1rem .5rem;
     overflow: hidden;
+    min-height: 2.22rem;
 }
 
 .exhibit_list .exhibit_item {

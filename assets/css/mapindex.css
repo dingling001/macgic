@@ -109,7 +109,22 @@
     top: 63%;
     z-index: 5;
 }
-
+.floor3 .mypos{
+    right: 30%;
+    top: 63%;
+    z-index: 1;
+    position: absolute;
+    width: .43rem;
+    height: .43rem;
+}
+.floor3 .mypos1{
+    right: 21%;
+    top: 52%;
+    z-index: 1;
+    position: absolute;
+    width: .43rem;
+    height: .43rem;
+}
 .btnbox {
     /*overflow: hidden;*/
     width: 60.3%;

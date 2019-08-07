@@ -20,7 +20,10 @@ var VM = new Vue({
         p_width: 0,
         is_playing: false,
         audio_time: '00:00',
-        cur: 0
+        cur: 0,
+
+        findex: 1,
+        isflag:false
     },
     created: function () {
         var _ = this;
@@ -28,53 +31,26 @@ var VM = new Vue({
     },
     mounted: function () {
         var _ = this;
-        if (Utils.getUrlKey('floor_id')) {
-            _.floor_id = Utils.getUrlKey('floor_id');
-        } else {
-            window.history.go(-1)
-        }
-        _.get_maps();
-        _._map_exhibits()
+        _._map_exhibits(1);
     },
     methods: {
-        // 获取地图信息，展厅列表
-        get_maps: function () {
+        // 获取楼层展厅的展品列表
+        _map_exhibits: function (map_id) {
             var _ = this;
             BaseAjax.get({
-                url: baseUrl + "touch_exhibit/maps",
-                data: {p: "t"},
+                url: baseUrl + "touchuser/visit_road",
+                data: {
+                    p: "t",
+                    api_token: localStorage.getItem('api_token'),
+                    map_id: map_id
+                },
                 success: function (res) {
                     console.log(res)
                     if (res.status == 1) {
-                        _.maplist = res.data;
-                        for (var i in res.data) {
-                            if (_.floor_id == res.data[i].floor_id) {
-                                _.exhibition_list = res.data[i].exhibition_list;
-                                _.map_name = res.data[i].map_name
-                            }
-                        }
-                    }
-                }
-            });
-        },
-        // 获取展厅的展品列表
-        _map_exhibits: function () {
-            var _ = this;
-            BaseAjax.get({
-                url: baseUrl + "touch_exhibit/map_exhibits",
-                data: {p: "t", floor_id: _.floor_id},
-                success: function (res) {
-                    console.log(res)
-                    if (res.status == 1&&res.data.nums.length>0) {
-                        _.info = res.data;
-                        _.lists = res.data.nums;
-                        console.log(_.lists[0].exhibit_list)
-                        _.exhibit_list = _.lists[0].exhibit_list;
-                        _.exhibition_name = _.lists[0].exhibition_name;
-
-                        if (_.lists.length > 0) {
-                            _.initMap(_.lists[0].x, _.lists[0].y);
-                        }
+                        _.lists = res.data.exhibitInfo;
+                        _.info = res.data.mapInfo;
+                        _.isflag=true;
+                        _.initMap();
                         _.initMarkers();
                     }
                 }
@@ -94,7 +70,7 @@ var VM = new Vue({
             var y = _.exhibition_list[index].y;
             _.myMap.flyTo([x, y])
         },
-        initMap: function (x, y) {
+        initMap: function () {
             var v = this;
             var imgWidth = v.imgWidth;
             var imgHeight = v.imgHeight;
@@ -113,7 +89,7 @@ var VM = new Vue({
                 center: [0, 0], //隐藏leaflet
                 zoomControl: false,
                 attributionControl: false
-            }).flyTo([x, y]);
+            });
             L.imageOverlay(imgUrl, [
                 [-(imgHeight / 2), -(imgWidth / 2)],
                 [imgHeight / 2, imgWidth / 2]
@@ -314,9 +290,16 @@ var VM = new Vue({
         // 去详情页
         go_detail: function () {
             var _ = this;
-            var ind = _.inds == -1 ? 0:_.inds;
+            var ind = _.inds == -1 ? 0 : _.inds;
             var id = _.exhibit_list[ind].exhibit_id;
             window.location.href = './mapd.html?exhibit_id=' + id;
+        },
+
+        tab: function (index) {
+            var _ = this;
+            _.findex = index;
+            console.log(_.myMap)
+            _._map_exhibits(index);
         }
     }
 });

@@ -58,7 +58,7 @@
     <div class="mold animated fadeIn" v-show="showmore">
         <div class="moldlist animated zoomIn">
             <div :class="['molditem animated bounceInDown  delay-'+index+'s',inds==index?'molditemactive':'']"
-                 v-for="(item,index) in exhibit_list">
+                 v-for="(item,index) in exhibit_list" @click="go_detail">
                 <div class="moldimg"><img :src="baseImgUrl+item.list_img" alt=""></div>
                 <div class="moldname">{{item.exhibit_name}}</div>
                 <div class="moldtime" v-if="item.audio">
@@ -96,9 +96,6 @@
     <audio ref="audio" id="audio" preload="auto" :src="currSong" @timeupdate="ontimeupdate"
            @loadedmetadata="onloadedmetadata" @ended="end_audio">
     </audio>
-    <!--    <audio ref="audio" id="audio" preload="auto" src="./ogg.ogg" @timeupdate="ontimeupdate"-->
-    <!--           @loadedmetadata="onloadedmetadata" @ended="end_audio" >-->
-    <!--    </audio>-->
 </div>
 </body>
 </html>

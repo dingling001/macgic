@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <script src="../assets/js/resize.js"></script>
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/lib/animate.css">
+    <link rel="stylesheet" href="../assets/lib/swiper/swiper.min.css">
+    <link rel="stylesheet" href="../assets/lib/leaflet/leaflet.css">
+    <link rel="stylesheet" href="../assets/css/mapex.css">
+    <link rel="stylesheet" href="../assets/css/myhistory.css">
+</head>
+<body>
+<div id="main" v-cloak class="main">
+    <div v-show="info">
+        <div id="map" class="map"></div>
+        <div class="floorbox">
+            <span :class="{spanactive:findex==1}" @click="tab(1)">1F</span>
+            <span :class="{spanactive:findex==2}" @click="tab(2)">2F</span>
+            <span :class="{spanactive:findex==3}" @click="tab(3)">3F</span>
+        </div>
+        <div class="backbtn" @click="window.history.go(-1)"></div>
+        <div class="label" v-if="exhibit_list.length">
+            <div class="labelnamebox">{{exhibit_list[0].exhibit_name}}</div>
+            <div class="labelfloor"><span class="img"><img src="../assets/img/pos.png" alt=""></span> <span>{{map_name}} {{exhibition_name}}</span>
+            </div>
+            <div class="labelcontent" v-html="exhibit_list[0].desc"></div>
+            <div class="labelbtn" @click="go_detail">查看详情</div>
+            <div class="palybox">
+                <em class="pause_box" v-if="inds==0" @click.stop="pause_audio(0)">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="114px" height="114px"
+                         viewBox="0 0 12 12" style="enable-background:new 0 0 50 50;" xml:space="preserve">
+                   <rect x="0" y="0" width="2" rx="0.5" ry="0.5" height="5" fill="#1EFFF9">
+               <animateTransform attributeType="xml" attributeName="transform" type="scale" values="1,1; 1,3; 1,1"
+                                 begin="0s" dur="0.6s" repeatCount="indefinite"></animateTransform>
+                 </rect>
+                        <rect x="3" y="0" width="2" rx="0.5" ry="0.5" height="5" fill="#1EFFF9">
+                    <animateTransform attributeType="xml" attributeName="transform" type="scale" values="1,1; 1,3; 1,1"
+                                      begin="0.2" dur="0.6s" repeatCount="indefinite"></animateTransform>
+                  </rect>
+                        <rect x="6" y="0" rx="0.5" width="2" ry="0.5" height="5" fill="#1EFFF9">
+              <animateTransform attributeType="xml" attributeName="transform" type="scale" values="1,1; 1,3; 1,1"
+                                begin="0.3s" dur="0.6s" repeatCount="indefinite"></animateTransform>
+               </rect>
+                        <rect x="9" y="0" rx="0.5" width="2" ry="0.5" height="5" fill="#1EFFF9">
+              <animateTransform attributeType="xml" attributeName="transform" type="scale" values="1,1; 1,3; 1,1"
+                                begin="0.1s" dur="0.6s" repeatCount="indefinite"></animateTransform>
+               </rect>
+             </svg>
+                </em>
+                <img src="../assets/img/paly.png" alt="" v-else @click.stop="play_audio(0)">
+            </div>
+        </div>
+        <audio ref="audio" id="audio" preload="auto" :src="currSong" @timeupdate="ontimeupdate"
+               @loadedmetadata="onloadedmetadata" @ended="end_audio">
+        </audio>
+    </div>
+    <div class="netFail animated zoomIn" v-if="!info&&isflag">
+        <div class="net_fail ">
+            <div class="c1">
+                <div class="nodata"></div>
+                <div class="p1">
+                   <div> 您的智慧笔浏览记录为空，</div>
+                   <div> 快使用智慧笔收听讲解吧！</div>
+                </div>
+            </div>
+            <div class="btn" @click="window.history.go(-1)">确定</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<script src="../assets/lib/jquery.min.3.3.1.js"></script>
+<script src="../assets/lib/vue.min.2.2.2.js"></script>
+<script src="../assets/lib/leaflet/leaflet.js"></script>
+<script src="../assets/lib/swiper/swiper.min.js"></script>
+<script src="../assets/js/common.js"></script>
+<script src="../assets/js/myhistory.js"></script>

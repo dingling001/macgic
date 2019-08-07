@@ -11,7 +11,8 @@ var VM = new Vue({
         tmp_max: '',
         tmp_min: '',
         admin_area: '兰州',
-        pm25: ''
+        pm25: '',
+        pos:1
     },
     created: function () {
         var _ = this;
@@ -19,6 +20,9 @@ var VM = new Vue({
     },
     mounted: function () {
         var _ = this;
+        if (Utils.getUrlKey('pos')) {
+            _.pos = Utils.getUrlKey('pos');
+        }
         _.myChart = echarts.init(document.querySelector("#chart"));
         _.myChart.showLoading(
             {

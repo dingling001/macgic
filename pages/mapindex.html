@@ -36,16 +36,18 @@
                 <img src="../assets/img/floor/f11.png" alt="" class="r animated flash infinite" @click.stop="go_ex">
                 <img src="../assets/img/floor/f12.png" alt="" class="m animated flash infinite" @click.stop="go_ex">
                 <img src="../assets/img/floor/f13.png" alt="" class="l animated flash infinite" @click.stop="go_ex">
+                <img src="../assets/img/mpos.png" alt="" :class="['mypos animated  infinite',pos==1?'zoomIn':'']">
+                <img src="../assets/img/mpos.png" alt="" :class="['mypos1 animated  infinite',pos==2?'zoomIn':'']">
                 <div class="text text1"></div>
             </div>
         </div>
         <div class="btnbox">
-            <a class="navitem" href="javascript:void (0)" @click="severimgshow=false">
+            <div class="navitem" @click="severimgshow=false">
                 <div class="navimg"><img src="../assets/img/floor/sever.png" alt=""></div>
-            </a>
-            <a class="navitem " href="">
+            </div>
+            <div class="navitem " @click="mypos">
                 <div class="navimg"><img src="../assets/img/floor/mystation.png" alt=""></div>
-            </a>
+            </div>
             <a class="navitem" href="">
                 <div class="navimg"><img src="../assets/img/floor/list.png" alt=""></div>
             </a>

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <script src="../assets/js/resize.js"></script>
+    <link rel="stylesheet" href="../assets/css/reset.css">
+    <link rel="stylesheet" href="../assets/lib/animate.css">
+    <link rel="stylesheet" href="../assets/css/mycollect.css">
+</head>
+<!--animated   flash infinite-->
+<body>
+<div id="main" v-cloak>
+    <div v-if="today.length>0||history.length>0" class="clist">
+        <div class="todayc">
+            <img src="../assets/img/dian.png" alt="" class="dian"><span class="tag">今日收藏记录</span>
+            <div class="zankai" @click="showtoday=!showtoday">
+                <span v-show="!showtoday">展开</span>
+                <span v-show="showtoday">收起</span>
+            </div>
+            <div class="imglist animated fadeIn" v-show="showtoday">
+                <div :class="'imgitem animated zoomIn delay-'+index+'s'" v-for="(item,index) in today"
+                     @click="go_detail(item.exhibit_id)"><img :src="item.img" alt=""></div>
+            </div>
+        </div>
+        <div class="todayc hisc">
+            <img src="../assets/img/dian.png" alt="" class="dian"><span class="tag">历史收藏记录</span>
+            <div class="zankai"><img src="../assets/img/del.png" alt="" @click="nocollect=true"></div>
+            <div class="imglist">
+                <div :class="'imgitem animated zoomIn delay-'+index+'s'" v-for="(item,index) in history"
+                     @click="go_detail(item.exhibit_id)"><img :src="item.img" alt=""></div>
+            </div>
+        </div>
+    </div>
+    <div class="netFail animated zoomIn" v-if="today.length==0&&history.length==0">
+        <div class="net_fail ">
+            <div class="c1">
+                <div class="nodata"></div>
+                <div class="p1">
+                    <div>您暂时还没有收藏任何展品，</div>
+                    <div> 快去收藏吧！</div>
+                </div>
+            </div>
+            <div class="btn" @click="window.history.go(-1)">确定</div>
+        </div>
+    </div>
+    <div class="netFail animated zoomIn" v-show="nocollect">
+        <div class="net_fail icon_outbox">
+            <div class="c1">
+                <div class="icon_out"></div>
+                <p class="p1">您确认要删除收藏记录吗？</p>
+            </div>
+            <div class="logoutbox">
+                <div class="btnl" @click="nocollect=false">取消</div>
+                <div class="btn" @click="delcollect">确定</div>
+            </div>
+        </div>
+    </div>
+    <div class="backbtn" @click="window.history.go(-1)"></div>
+</div>
+</body>
+</html>
+<script src="../assets/lib/jquery.min.3.3.1.js"></script>
+<script src="../assets/lib/vue.min.2.2.2.js"></script>
+<script src="../assets/lib/swiper/swiper.min.js"></script>
+<script src="../assets/lib/qrcode.js"></script>
+<script src="../assets/js/common.js"></script>
+<script src="../assets/js/mycollect.js"></script>

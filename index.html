@@ -15,7 +15,7 @@
 <body>
 <div id="main" v-cloak>
     <div class="weather_head">
-        <div class="city">11{{admin_area}}</div>
+        <div class="city">{{admin_area}}</div>
         <div class="weather_box">
             <div class="time">{{time}}</div>
             <div class="date">
@@ -24,7 +24,8 @@
             </div>
             <div class="temp">
                 <div class="wendu"><span>{{tmp_max}}/{{tmp_min}}℃ </span>
-                    <span class="imgspan"><img :src="'./assets/img/cloudys/cond_icon_'+cond_code_d +'.png'" alt=""></span>
+                    <span class="imgspan"><img :src="'./assets/img/cloudys/cond_icon_'+cond_code_d +'.png'"
+                                               alt=""></span>
                 </div>
                 <div><span>PM2.5</span><span>{{pm25}}</span></div>
             </div>
@@ -32,7 +33,7 @@
     </div>
     <div class="chart" id="chart"></div>
     <div class="navbox">
-        <a class="navitem" href="./pages/mapindex.html">
+        <a class="navitem" href="./pages/mapindex.html?pos=1">
             <div class="navimg"><img src="./assets/img/map.png" alt=""></div>
             <div>地图导览</div>
         </a>
@@ -40,7 +41,7 @@
             <div class="navimg"><img src="./assets/img/game.png" alt=""></div>
             <div>互动游戏</div>
         </a>
-        <a class="navitem" href="">
+        <a class="navitem" href="./pages/mymacgic.html">
             <div class="navimg"><img src="./assets/img/logo.png" alt=""></div>
             <div>我的科技馆</div>
         </a>
