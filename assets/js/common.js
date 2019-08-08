@@ -177,6 +177,7 @@ var Utils = {
      * @定时长屏幕无触发处理：返回首页，注销登录状态-----分享页不用倒计时
      */
     noTouchtime: function (t) {
+        var that=this;
         // 如页面有【#nobackTimer】元素，跳出本方法，不进行无触发处理
         if ($("#nobackTimer")[0]) {
             return;
@@ -218,7 +219,7 @@ var Utils = {
             if (count == 0) {
                 clearInterval(outInterval);
                 if (localStorage.getItem('api_token')) {
-                    this.loginOut();
+                    that.loginOut();
                 }
                 if (window.location.href == 'http://192.168.11.90/project/macgic/index.html') return;
                 window.location.href = "http://192.168.11.90/project/macgic/index.html";
