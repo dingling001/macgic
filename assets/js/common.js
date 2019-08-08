@@ -1,6 +1,6 @@
 var baseUrl = "http://192.168.10.158:8316/api/"; //嘉善测试平台
 // var baseUrl = "http://jiashan.museum-edu.cn"; //线上测试平台
-var baseImgUrl = 'http://192.168.10.158:8316'
+var baseImgUrl = 'http://192.168.10.158:8316';
 var ls = window.localStorage;
 var weatherkey = '4cb210538d2c4a27ae661140753c71d0';//天气key
 var Utils = {
@@ -217,6 +217,9 @@ var Utils = {
             }
             if (count == 0) {
                 clearInterval(outInterval);
+                if (localStorage.getItem('api_token')) {
+                    this.loginOut();
+                }
                 if (window.location.href == 'http://192.168.11.90/project/macgic/index.html') return;
                 window.location.href = "http://192.168.11.90/project/macgic/index.html";
             }
@@ -239,8 +242,19 @@ var Utils = {
         domStr += '</div>';
         $("body").append(domStr);
     },
+    // 登出
+    loginOut: function () {
+        BaseAjax.get({
+            url: baseUrl + "touchuser/logout",
+            data: {p: "t", api_token: localStorage.getItem('api_token')},
+            success: function (res) {
+                if (res.status == 1) {
+                }
+            }
+        });
+        localStorage.removeItem('api_token');
+    },
 };
-
 /**
  * cache
  */

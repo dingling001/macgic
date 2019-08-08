@@ -8,17 +8,22 @@ var VM = new Vue({
         isout: false,
         logining: false,
         logintext: '恭喜，您已登录成功',
+        showvideo: false,
+        endestatus: false
     },
     created: function () {
         var _ = this;
-        if (Utils.getUrlKey('deviceId')) {
-            _.deviceId = Utils.getUrlKey('deviceId');
-            _.login();
+        // localStorage.setItem('api_token','0ded844bb16ebe1ec85180be51f6cd5f')
+        if (localStorage.getItem('api_token')) {
+            _.islogin = false;
         }
-        if(localStorage.getItem('api_token')){
-            _.islogin=false;
+        // alert(JSON.stringify(Utils.getUrlKey('deviceId')))
+        if (!localStorage.getItem('api_token')) {
+            if (Utils.getUrlKey('deviceId')) {
+                _.deviceId = Utils.getUrlKey('deviceId');
+                _.login();
+            }
         }
-        localStorage.setItem('api_token','85471450cbea9241277fe648c16a0c51')
     },
     mounted: function () {
         var _ = this;
@@ -31,38 +36,23 @@ var VM = new Vue({
                 url: baseUrl + "touchuser/login",
                 data: {p: "t", deviceId: _.deviceId},
                 success: function (res) {
-                    console.log(res)
                     if (res.status == 1) {
-                        _.logintext = '恭喜，您已登录成功';
-                        _.logining = true;
-                        setTimeout(function () {
-                            _.logining = false;
-                        }, 1000);
-                        _.islogin = true;
                         localStorage.setItem('api_token', res.data.api_token);
-                        _.name = res.data.name;
-                        _.rent_time = res.data.rent_time;
+                        _.showvideo = true;
+                        _.islogin = false;
                     }
                 }
             });
         },
-        // 登出
         loginOut: function () {
             var _ = this;
             _.islogin = true;
             _.isout = false;
-            BaseAjax.get({
-                url: baseUrl + "touchuser/logout",
-                data: {p: "t", api_token: localStorage.getItem('api_token')},
-                success: function (res) {
-                    if (res.status == 1) {
-                    }
-                }
-            });
-            localStorage.removeItem('api_token');
+            Utils.loginOut();
         },
+        // 我的浏览历史
         go_his: function () {
-            var _=this;
+            var _ = this;
             if (!localStorage.getItem('api_token')) {
                 _.logining = true;
                 _.logintext = '您尚未登录';
@@ -72,12 +62,10 @@ var VM = new Vue({
             } else {
                 window.location.href = './maphistory.html'
             }
-
-
-            window.location.href = './maphistory.html'
         },
-        go_collect:function () {
-            var _=this;
+        // 我的收藏
+        go_collect: function () {
+            var _ = this;
             if (!localStorage.getItem('api_token')) {
                 _.logining = true;
                 _.logintext = '您尚未登录';
@@ -87,10 +75,16 @@ var VM = new Vue({
             } else {
                 window.location.href = './mycollect.html'
             }
-
-
-            window.location.href = './mycollect.html'
+        },
+        // 视频播放完毕
+        endvideo: function () {
+            var _ = this;
+            _.showvideo = false;
+            _.logintext = '恭喜，您已登录成功';
+            _.logining = true;
+            setTimeout(function () {
+                _.logining = false;
+            }, 1500);
         }
-    },
-
+    }
 });

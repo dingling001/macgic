@@ -23,7 +23,9 @@ var VM = new Vue({
         cur: 0,
 
         findex: 1,
-        isflag:false
+        isflag: false,
+        imageOverlay:null,
+        imgurl:''
     },
     created: function () {
         var _ = this;
@@ -32,11 +34,17 @@ var VM = new Vue({
     mounted: function () {
         var _ = this;
         _._map_exhibits(1);
+        setTimeout(function () {
+            _.$nextTick(function () {
+                _.initMap();
+            })
+        }, 1000)
     },
     methods: {
         // 获取楼层展厅的展品列表
         _map_exhibits: function (map_id) {
             var _ = this;
+            return new Promise(function(resolve,reject){
             BaseAjax.get({
                 url: baseUrl + "touchuser/visit_road",
                 data: {
@@ -45,16 +53,18 @@ var VM = new Vue({
                     map_id: map_id
                 },
                 success: function (res) {
-                    console.log(res)
                     if (res.status == 1) {
                         _.lists = res.data.exhibitInfo;
                         _.info = res.data.mapInfo;
-                        _.isflag=true;
-                        _.initMap();
+                        _.imgurl=res.data.mapInfo.png_map_path;
+                        console.log(_.info)
+                        _.isflag = true;
                         _.initMarkers();
+                        resolve()
                     }
                 }
             });
+            })
         },
         // 跳转展品详情
         godetail: function (id) {
@@ -62,19 +72,12 @@ var VM = new Vue({
             // exhibit_info
             window.location.href = './mapex.html?floor_id=' + _.maplist[index].floor_id
         },
-        // 切换展厅
-        changeExhibit: function (index) {
-            var _ = this;
-            _.ind = index;
-            var x = _.exhibition_list[index].x;
-            var y = _.exhibition_list[index].y;
-            _.myMap.flyTo([x, y])
-        },
         initMap: function () {
             var v = this;
             var imgWidth = v.imgWidth;
             var imgHeight = v.imgHeight;
-            var imgUrl = v.info.png_map_path;
+            var imgUrl = v.imgurl;
+            console.log(imgUrl);
             v.myMap = L.map("map", {
                 // 修改坐标系
                 crs: L.CRS.Simple,
@@ -90,7 +93,7 @@ var VM = new Vue({
                 zoomControl: false,
                 attributionControl: false
             });
-            L.imageOverlay(imgUrl, [
+            v.imageOverlay = L.imageOverlay(imgUrl, [
                 [-(imgHeight / 2), -(imgWidth / 2)],
                 [imgHeight / 2, imgWidth / 2]
             ]).addTo(v.myMap).on('load', function () {
@@ -298,8 +301,10 @@ var VM = new Vue({
         tab: function (index) {
             var _ = this;
             _.findex = index;
-            console.log(_.myMap)
-            _._map_exhibits(index);
+            _._map_exhibits(index).then(function () {
+                console.log(_.imgurl)
+                _.imageOverlay.setUrl(_.imgurl);
+            });
         }
     }
 });

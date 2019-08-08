@@ -26,6 +26,7 @@ var VM = new Vue({
                 url: baseUrl + "touchuser/all_collect",
                 data: post,
                 success: function (res) {
+                    alert(JSON.stringify(res))
                     if (res.status == 1) {
                         _.today = res.data.today;
                         _.history = res.data.history;

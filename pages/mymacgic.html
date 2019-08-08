@@ -69,6 +69,12 @@
         </div>
     </div>
     <a class="backbtn animated bounceInDown"  href="../index.html"></a>
+    <div class="videobox" v-if="showvideo">
+        <video width="100%" height="100%"  muted="muted" autoplay id="video" @ended="endvideo">
+            <source src="../assets/img/login.ogv" type="video/ogg">
+            <source src="../assets/img/l.mp4"  type="video/mp4">
+        </video>
+    </div>
 </div>
 </body>
 </html>

@@ -65,7 +65,7 @@ var VM = new Vue({
                 data: {p: "t", floor_id: _.floor_id},
                 success: function (res) {
                     console.log(res)
-                    if (res.status == 1&&res.data.nums.length>0) {
+                    if (res.status == 1 && res.data.nums.length > 0) {
                         _.info = res.data;
                         _.lists = res.data.nums;
                         console.log(_.lists[0].exhibit_list)
@@ -314,7 +314,7 @@ var VM = new Vue({
         // 去详情页
         go_detail: function () {
             var _ = this;
-            var ind = _.inds == -1 ? 0:_.inds;
+            var ind = _.inds == -1 ? 0 : _.inds;
             var id = _.exhibit_list[ind].exhibit_id;
             window.location.href = './mapd.html?exhibit_id=' + id;
         }

@@ -115,6 +115,7 @@
     background-color: #001F80;
     border-radius: .34rem;
 }
+
 .logoutEle {
     display: none;
     width: 100%;
@@ -126,4 +127,16 @@
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+.videobox {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.videobox video{
+    width: 100%;
+    display: block;
+}
 
