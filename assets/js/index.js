@@ -10,7 +10,7 @@ var VM = new Vue({
         cond_code_d: '100',
         tmp_max: '',
         tmp_min: '',
-        admin_area: '兰州',
+        admin_area: '',
         pm25: '',
         pos:1
     },

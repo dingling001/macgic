@@ -37,10 +37,10 @@ var VM = new Vue({
             window.location.reload();
         },
         // 去我的楼层
-        goex:function(index) {
+        goex: function (index) {
             var _ = this;
-            if (_.maplist.length > 0) {
-                window.location.href = './mapex.html?floor_id=' + _.maplist[index].map_id
+            if (_.maplist.length > 0 && _.maplist[index].floor_id) {
+                window.location.href = './mapex.html?floor_id=' + _.maplist[index].floor_id
             }
         },
         // 我的位置
