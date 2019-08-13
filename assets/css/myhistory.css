@@ -30,3 +30,18 @@
     font-weight: bold;
     text-align: center;
 }
+.labelnamebox{
+    font-weight: bold;
+}
+.labelcontent{
+    height: 1rem;
+}
+.nohis{
+    padding: 1rem 0;
+    text-align: center;
+    font-size: .36rem;
+    color: #ccc;
+}
+.btn{
+
+}

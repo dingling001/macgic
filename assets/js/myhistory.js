@@ -24,12 +24,13 @@ var VM = new Vue({
 
         findex: 1,
         isflag: false,
-        imageOverlay:null,
-        imgurl:''
+        imageOverlay: null,
+        imgurl: '',
+        myLayerGroup: null
     },
     created: function () {
         var _ = this;
-
+        _.myLayerGroup = new L.LayerGroup();
     },
     mounted: function () {
         var _ = this;
@@ -43,27 +44,33 @@ var VM = new Vue({
     methods: {
         // 获取楼层展厅的展品列表
         _map_exhibits: function (map_id) {
+            // alert(JSON.stringify(localStorage.getItem('api_token')))
             var _ = this;
-            return new Promise(function(resolve,reject){
-            BaseAjax.get({
-                url: baseUrl + "touchuser/visit_road",
-                data: {
-                    p: "t",
-                    api_token: localStorage.getItem('api_token'),
-                    map_id: map_id
-                },
-                success: function (res) {
-                    if (res.status == 1) {
-                        _.lists = res.data.exhibitInfo;
-                        _.info = res.data.mapInfo;
-                        _.imgurl=res.data.mapInfo.png_map_path;
-                        console.log(_.info)
-                        _.isflag = true;
-                        _.initMarkers();
-                        resolve()
+            _.exhibit_list = [];
+            return new Promise(function (resolve, reject) {
+                BaseAjax.get({
+                    url: baseUrl + "touchuser/visit_road",
+                    data: {
+                        p: "t",
+                        api_token: localStorage.getItem('api_token'),
+                        // api_token: 'a95adad90339a5d63d215c50365a5bd5',
+                        map_id: map_id
+                    },
+                    success: function (res) {
+                        if (res.status == 1) {
+                            // alert(JSON.stringify(res))
+                            _.lists = res.data.exhibitInfo;
+                            _.info = res.data.mapInfo;
+                            if (_.lists.length > 1) {
+                                _.exhibit_list = _.lists[0]
+                            }
+
+                            _.imgurl = res.data.mapInfo.png_map_path;
+                            _.isflag = true;
+                            resolve()
+                        }
                     }
-                }
-            });
+                });
             })
         },
         // 跳转展品详情
@@ -77,7 +84,6 @@ var VM = new Vue({
             var imgWidth = v.imgWidth;
             var imgHeight = v.imgHeight;
             var imgUrl = v.imgurl;
-            console.log(imgUrl);
             v.myMap = L.map("map", {
                 // 修改坐标系
                 crs: L.CRS.Simple,
@@ -97,7 +103,7 @@ var VM = new Vue({
                 [-(imgHeight / 2), -(imgWidth / 2)],
                 [imgHeight / 2, imgWidth / 2]
             ]).addTo(v.myMap).on('load', function () {
-                // v.initMarkers();
+                v.initMarkers();
             });
         },
         initMarkers: function () {
@@ -105,112 +111,62 @@ var VM = new Vue({
             var imgWidth = v.imgWidth;
             var imgHeight = v.imgHeight;
             var len = v.lists.length;
+            v.myLayerGroup.clearLayers();
             for (var i = 0; i < len; i++) {
                 var d = v.lists[i];
-                var nx = d.x - imgWidth / 2;
-                var ny = d.y - imgHeight / 2;
-                var markerContent, popupContent;
-                var exhibitLen = d.exhibit_list.length;
-                if (exhibitLen == 1) {
-                    var o = d.exhibit_list[0];
-                    if (i == 0) {
-                        markerContent = `<div class="cell " data-id="${o.exhibit_id}" data-len="1" data-i="${i}" >
+                var nx = d.axis_x - imgWidth / 2;
+                var ny = d.axis_y - imgHeight / 2;
+                var markerContent = '';
+                if (i == 0) {
+                    markerContent = `<div class="cell " data-id="${d.exhibit_id}" data-len="1" data-i="${i}" >
                                         <div class="cell_icon markerbg_1 animated">
-                                            <img src="${baseImgUrl}${o.icon}" alt="" class="animated bounce infinite"/>
+                                            <img src="${d.poi_1}" alt="" class="animated bounce infinite"/>
                                         </div>
-                                        <div class="cell_title">${o.exhibit_name}</div>
+                                        <div class="cell_title">${d.title}</div>
                                     </div>`;
-                        popupContent = v.renderPopup1(d.exhibit_list);
-                    } else {
-                        markerContent = `<div class="cell " data-id="${o.exhibit_id}" data-len="1" data-i="${i}" >
+                } else {
+                    markerContent = `<div class="cell " data-id="${d.exhibit_id}" data-len="1" data-i="${i}" >
                                         <div class="cell_icon markerbg_1 animated">
-                                            <img src="${baseImgUrl}${o.icon}" alt="" />
+                                            <img src="${d.poi_1}" alt="" />
                                         </div>
-                                        <div class="cell_title">${o.exhibit_name}</div>
+                                        <div class="cell_title">${d.title}</div>
                                     </div>`;
-                        popupContent = v.renderPopup1(d.exhibit_list);
-                    }
-
-                } else if (exhibitLen > 1) {
-                    if (i == 0) {
-                        markerContent = `<div class="cell" data-len="${exhibitLen}" data-i="${i}">
-                                        <div class="cell_icon markerbg_2 animated bounce infinite">
-                                            <span>${exhibitLen}</span>
-                                        </div>
-                                    </div>`;
-                    } else {
-                        markerContent = `<div class="cell" data-len="${exhibitLen}" data-i="${i}">
-                                        <div class="cell_icon markerbg_2  animated">
-                                            <span>${exhibitLen}</span>
-                                        </div>
-                                    </div>`;
-                    }
                 }
                 var myIcon = new L.divIcon({
                     className: "my-exhibits",
                     html: markerContent
                 });
-                var popup = new L.popup({
-                    className: 'my-exhibits-popup',
-                    keepInView: true,
-                    offset: [0, -80],
-                    closeOnClick: false,
-                    closeButton: false
-                })
-                    .setContent(popupContent)
                 var point = L.marker([ny, nx], {
                     icon: myIcon,
-                })
-                    .addTo(v.myMap)
-                    // .bindPopup(popup)
-                    .on("click", function (ev) {
-                        var target = ev.target;
-                        var id = target._icon.children[0].dataset.id;
-                        var len = target._icon.children[0].dataset.len;
-                        var index = target._icon.children[0].dataset.i;
-                        var img = target._icon.children[0].children[0];
-                        $('body').find('.bounce').removeClass('bounce infinite');
-                        $(img).addClass('bounce infinite');
-                        // console.log(target._icon.children[0].children[0])
-                        v.exhibition_name = v.lists[index].exhibition_name;
-                        var _audio = document.getElementById('audio');
-                        _audio.load();
-                        v.pause_audio();
-                        v.exhibit_list = v.lists[index].exhibit_list;
-                        if (len == 1) {
-                        } else {
-                            v.showmore = true;
-                        }
-
-                    });
+                }).on("click", function (ev) {
+                    var target = ev.target;
+                    var id = target._icon.children[0].dataset.id;
+                    var len = target._icon.children[0].dataset.len;
+                    var index = target._icon.children[0].dataset.i;
+                    var img = target._icon.children[0].children[0];
+                    $('body').find('.bounce').removeClass('bounce infinite');
+                    $(img).addClass('bounce infinite');
+                    // console.log(target._icon.children[0].children[0])
+                    v.exhibition_name = v.lists[index].exhibition_name;
+                    var _audio = document.getElementById('audio');
+                    _audio.load();
+                    v.pause_audio();
+                    v.exhibit_list = v.lists[index];
+                });
+                v.myLayerGroup.addLayer(point);
+                v.myMap.addLayer(v.myLayerGroup);
             }
-        },
-        renderPopup1: function (list) {
-            var str = "";
-            for (var i in list) {
-                str += `<div class="cell">
-                            <div class="img">
-                                <img src="${baseImgUrl}${list[i].icon}" alt="" />
-                            </div>
-                            <div class="txt">
-                                <div class="title">${list[i].exhibit_name}</div>
-                                <div class="brief">${list[i].desc}</div>
-                                <div data_id="${list[i].exhibit_id}" class="enter_btn">查看详情</div>
-                            </div>
-                        </div>`;
-            }
-            return str;
         },
         // 播放音频
         play_audio: function (index) {
             var that = this;
             var elist = that.exhibit_list;
-            that.currSong = elist[index].audio;
+            console.log(that.exhibit_list)
+            that.currSong = elist.audio;
             // alert(JSON.stringify(that.currSong))
             if (Object.keys(that.currSong).length == 0) {
                 alert('暂不可播放')
             } else {
-                elist[index].isPlaying = false;
                 that.inds = index;
                 // that.proShow = 0;
                 // that.indexSong = 0;
@@ -291,18 +247,16 @@ var VM = new Vue({
             }
         },
         // 去详情页
-        go_detail: function () {
+        go_detail: function (id) {
             var _ = this;
-            var ind = _.inds == -1 ? 0 : _.inds;
-            var id = _.exhibit_list[ind].exhibit_id;
             window.location.href = './mapd.html?exhibit_id=' + id;
         },
 
         tab: function (index) {
             var _ = this;
             _.findex = index;
+            _._map_exhibits(index);
             _._map_exhibits(index).then(function () {
-                console.log(_.imgurl)
                 _.imageOverlay.setUrl(_.imgurl);
             });
         }

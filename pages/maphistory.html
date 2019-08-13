@@ -25,12 +25,12 @@
             <span :class="{spanactive:findex==3}" @click="tab(3)">3F</span>
         </div>
         <div class="backbtn" @click="window.history.go(-1)"></div>
-        <div class="label" v-if="exhibit_list.length">
-            <div class="labelnamebox">{{exhibit_list[0].exhibit_name}}</div>
-            <div class="labelfloor"><span class="img"><img src="../assets/img/pos.png" alt=""></span> <span>{{map_name}} {{exhibition_name}}</span>
+        <div class="label" v-if="Object.keys(exhibit_list).length>0">
+            <div class="labelnamebox">{{exhibit_list.title}}</div>
+            <div class="labelfloor"><span class="img"><img src="../assets/img/pos.png" alt=""></span> <span>{{exhibit_list.map_name}} {{exhibit_list.exhibition_name}}</span>
             </div>
-            <div class="labelcontent" v-html="exhibit_list[0].desc"></div>
-            <div class="labelbtn" @click="go_detail">查看详情</div>
+            <div class="labelcontent" v-html="exhibit_list.content"></div>
+            <div class="labelbtn" @click="go_detail(exhibit_list.exhibit_id)">查看详情</div>
             <div class="palybox">
                 <em class="pause_box" v-if="inds==0" @click.stop="pause_audio(0)">
                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -57,8 +57,12 @@
                 <img src="../assets/img/paly.png" alt="" v-else @click.stop="play_audio(0)">
             </div>
         </div>
-        <audio ref="audio" id="audio" preload="auto" :src="currSong" @timeupdate="ontimeupdate"
-               @loadedmetadata="onloadedmetadata" @ended="end_audio">
+        <div class="label" v-else>
+            <div class="nohis">暂无浏览记录</div>
+        </div>
+        <audio ref="audio" id="audio" preload="auto" :src="currSong"  @ended="end_audio">
+<!--            @timeupdate="ontimeupdate"-->
+<!--            @loadedmetadata="onloadedmetadata"-->
         </audio>
     </div>
     <div class="netFail animated zoomIn" v-if="!info&&isflag">
@@ -66,8 +70,8 @@
             <div class="c1">
                 <div class="nodata"></div>
                 <div class="p1">
-                   <div> 您的智慧笔浏览记录为空，</div>
-                   <div> 快使用智慧笔收听讲解吧！</div>
+                    <div> 您的智慧笔浏览记录为空，</div>
+                    <div> 快使用智慧笔收听讲解吧！</div>
                 </div>
             </div>
             <div class="btn" @click="window.history.go(-1)">确定</div>

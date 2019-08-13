@@ -29,7 +29,8 @@
         </div>
         <div class="todayc hisc">
             <img src="../assets/img/dian.png" alt="" class="dian"><span class="tag">历史收藏记录</span>
-            <div class="zankai"><img src="../assets/img/del.png" alt="" @click="nocollect=true"></div>
+            <div class="zankai" v-if="history.length>0"><img src="../assets/img/del.png" alt="" @click="nocollect=true">
+            </div>
             <div class="imglist">
                 <div :class="'imgitem animated zoomIn delay-'+index+'s'" v-for="(item,index) in history"
                      @click="go_detail(item.exhibit_id)"><img :src="item.img" alt=""></div>
@@ -56,8 +57,17 @@
             </div>
             <div class="logoutbox">
                 <div class="btnl" @click="nocollect=false">取消</div>
-                <div class="btn" @click="delcollect">确定</div>
+                <div class="btn" @click="delcollect">删除</div>
             </div>
+        </div>
+    </div>
+    <div class="netFail animated zoomIn" v-show="nologin">
+        <div class="net_fail icon_loginbox">
+            <div class="c1">
+                <div class="icon_login"></div>
+                <p class="p1">{{logintext}}</p>
+            </div>
+            <div class="btn" @click="logining=false">确定</div>
         </div>
     </div>
     <div class="backbtn" @click="window.history.go(-1)"></div>

@@ -1,8 +1,10 @@
-var baseUrl = "http://192.168.10.158:8316/api/"; //嘉善测试平台
-// var baseUrl = "http://jiashan.museum-edu.cn"; //线上测试平台
+var baseUrl = "http://192.168.10.158:8316/api/"; //测试平台
+// var baseUrl = "http://www.gsstm.org/api/"; //线上平台
 var baseImgUrl = 'http://192.168.10.158:8316';
+// var baseImgUrl = 'http://www.gsstm.org';
 var ls = window.localStorage;
-var weatherkey = '4cb210538d2c4a27ae661140753c71d0';//天气key
+// var weatherkey = '4cb210538d2c4a27ae661140753c71d0';//天气个人key
+var weatherkey = '6fdf9567c86b4752a6a1bb62d5a2bf13';//天气企业key
 var Utils = {
     /**
      * @取url查询字段参数
@@ -177,7 +179,7 @@ var Utils = {
      * @定时长屏幕无触发处理：返回首页，注销登录状态-----分享页不用倒计时
      */
     noTouchtime: function (t) {
-        var that=this;
+        var that = this;
         // 如页面有【#nobackTimer】元素，跳出本方法，不进行无触发处理
         if ($("#nobackTimer")[0]) {
             return;
@@ -329,7 +331,7 @@ var BaseAjax = {
                 arg.success && arg.success(data);
             },
             error: function (err) {
-                alert("获取数据失败，请查看网络连接！！");
+                alert("操作失败，请查看网络连接！！");
                 Utils.noInterNet();
                 arg.error && arg.error(err);
             },
@@ -338,8 +340,7 @@ var BaseAjax = {
             }
         });
     }
-}
-
+};
 Utils.noTouchtime(120);
 
 Utils.checkNetStatus(window, "offline", function () {

@@ -52,16 +52,16 @@ var VM = new Vue({
                     if (res.status == 1) {
                         _.exhibit_info = res.data;
                         _.exhibit_info.exhibit_imgs = res.data.exhibit_imgs;
-                        console.log(baseImgUrl + res.data.share_url)
-                        _.sharecode = new QRCode("qrcode", {
-                            text: baseImgUrl + res.data.share_url,
-                            width: 400,
-                            height: 400,
-                            colorDark: "#000000",
-                            colorLight: "#ffffff",
-                            correctLevel: QRCode.CorrectLevel.H
-                        });
+                        // console.log(baseImgUrl + res.data.share_url)
                         setTimeout(function () {
+                            _.sharecode = new QRCode("qrcode", {
+                                text: baseImgUrl + res.data.share_url,
+                                width: 400,
+                                height: 400,
+                                colorDark: "#000000",
+                                colorLight: "#ffffff",
+                                correctLevel: QRCode.CorrectLevel.H
+                            });
                             _.initswiper();
                             Utils.initScrollCont();
                         }, 500)
@@ -174,8 +174,8 @@ var VM = new Vue({
             // that.p_width = 100 - (cur / dur) * 100
             if (cur > 0) {
                 _.maxTime = Utils.timeFormat(dur)
-                _.currentTime = Utils.timeFormat(cur)
-                // alert(that.audio_time)
+                // _.currentTime = Utils.timeFormat(cur)
+                // alert(that.audio_time)s
             } else {
                 // clearInterval(interval);
             }

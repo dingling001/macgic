@@ -28,7 +28,7 @@
         <div class="labelfloor"><span class="img"><img src="../assets/img/pos.png" alt=""></span> <span>{{map_name}} {{exhibition_name}}</span>
         </div>
         <div class="labelcontent" v-html="exhibit_list[0].desc"></div>
-        <div class="labelbtn" @click="go_detail">查看详情</div>
+        <div class="labelbtn" @click="go_detail(exhibit_list[0].exhibit_id)">查看详情</div>
         <div class="palybox">
             <em class="pause_box" v-if="inds==0" @click.stop="pause_audio(0)">
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
@@ -58,7 +58,7 @@
     <div class="mold animated fadeIn" v-show="showmore">
         <div class="moldlist animated zoomIn">
             <div :class="['molditem animated bounceInDown  delay-'+index+'s',inds==index?'molditemactive':'']"
-                 v-for="(item,index) in exhibit_list" @click="go_detail">
+                 v-for="(item,index) in exhibit_list" @click="go_detail(item.exhibit_id)">
                 <div class="moldimg"><img :src="baseImgUrl+item.list_img" alt=""></div>
                 <div class="moldname">{{item.exhibit_name}}</div>
                 <div class="moldtime" v-if="item.audio">

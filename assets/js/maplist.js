@@ -76,6 +76,7 @@ var VM = new Vue({
         // 初始化轮播图
         int_swiper: function () {
             var _ = this;
+            console.log(_.activeIndex);
             _.mySwiper = new Swiper('.banner', {
                 slidesPerView: 'auto', //重要 可以去swiper搜索
                 centeredSlides: true, //重要

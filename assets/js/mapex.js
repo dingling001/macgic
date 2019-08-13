@@ -65,15 +65,15 @@ var VM = new Vue({
                 data: {p: "t", floor_id: _.floor_id},
                 success: function (res) {
                     console.log(res)
-                    if (res.status == 1 && res.data.nums.length > 0) {
+                    if (res.status == 1) {
                         _.info = res.data;
                         _.lists = res.data.nums;
-                        console.log(_.lists[0].exhibit_list)
-                        _.exhibit_list = _.lists[0].exhibit_list;
-                        _.exhibition_name = _.lists[0].exhibition_name;
-
                         if (_.lists.length > 0) {
                             _.initMap(_.lists[0].x, _.lists[0].y);
+                            _.exhibit_list = _.lists[0].exhibit_list;
+                            _.exhibition_name = _.lists[0].exhibition_name;
+                        } else {
+                            _.initMap(0, 0);
                         }
                         _.initMarkers();
                     }
@@ -90,29 +90,32 @@ var VM = new Vue({
         changeExhibit: function (index) {
             var _ = this;
             _.ind = index;
-            var x = _.exhibition_list[index].x;
-            var y = _.exhibition_list[index].y;
+            var x = _.exhibition_list[index].x / 2;
+            var y = -_.exhibition_list[index].y * 5;
             _.myMap.flyTo([x, y])
         },
         initMap: function (x, y) {
             var v = this;
+            console.log(v.info)
             var imgWidth = v.imgWidth;
             var imgHeight = v.imgHeight;
             var imgUrl = v.info.png_map_path;
+            console.log(imgUrl)
             v.myMap = L.map("map", {
                 // 修改坐标系
                 crs: L.CRS.Simple,
                 // 设置最大拖动边界
                 maxBounds: [
-                    [-(imgHeight / 1.5), -(imgWidth / 1.5)],
-                    [imgHeight / 1.5, imgWidth / 1.5]
+                    [-(imgHeight / 2), -(imgWidth / 2)],
+                    [imgHeight / 2, imgWidth / 2]
                 ],
-                minZoom: -1.55, // 设置缩放的最小值
+                minZoom: -1, // 设置缩放的最小值
                 maxZoom: 0, // 设置地图放大的最大值
-                zoom: 2, //设置初始化的缩放值
+                // zoom: 2, //设置初始化的缩放值
                 center: [0, 0], //隐藏leaflet
                 zoomControl: false,
-                attributionControl: false
+                attributionControl: false,
+                zoom: 2
             }).flyTo([x, y]);
             L.imageOverlay(imgUrl, [
                 [-(imgHeight / 2), -(imgWidth / 2)],
@@ -120,6 +123,7 @@ var VM = new Vue({
             ]).addTo(v.myMap).on('load', function () {
                 // v.initMarkers();
             });
+            console.log(v.myMap.getCenter())
         },
         initMarkers: function () {
             var v = this;
@@ -312,10 +316,11 @@ var VM = new Vue({
             }
         },
         // 去详情页
-        go_detail: function () {
+        go_detail: function (id) {
             var _ = this;
-            var ind = _.inds == -1 ? 0 : _.inds;
-            var id = _.exhibit_list[ind].exhibit_id;
+            // var ind = _.inds == -1 ? 0 : _.inds;
+            // var id = _.exhibit_list[ind].exhibit_id;
+            // console.log(ind)
             window.location.href = './mapd.html?exhibit_id=' + id;
         }
     }

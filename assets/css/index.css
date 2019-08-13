@@ -127,13 +127,17 @@
 
 .codebox .public_code {
     float: left;
-    width: 1.81rem;
-    height: 1.81rem;
+    width: 1.8rem;
+    height: 1.8rem;
     vertical-align: middle;
+    padding: .1rem;
 }
 
 .codebox .app_code {
     float: right;
+    width: 1.81rem;
+    height: 1.81rem;
+    padding: 0;
 }
 
 .codebox img {

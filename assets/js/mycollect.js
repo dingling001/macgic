@@ -5,7 +5,8 @@ var VM = new Vue({
         history: [],
         today: [],
         showtoday: false,
-        nocollect: false
+        nocollect: false,
+        logintext:'您尚未登录'
     },
     created: function () {
         var _ = this;
@@ -26,7 +27,7 @@ var VM = new Vue({
                 url: baseUrl + "touchuser/all_collect",
                 data: post,
                 success: function (res) {
-                    alert(JSON.stringify(res))
+                    // alert(JSON.stringify(res))
                     if (res.status == 1) {
                         _.today = res.data.today;
                         _.history = res.data.history;
@@ -41,6 +42,7 @@ var VM = new Vue({
         go_detail: function (id) {
             window.location.href = './mapd.html?exhibit_id=' + id;
         },
+        // 删除历史记录
         delcollect: function () {
             var _ = this;
             var post = {

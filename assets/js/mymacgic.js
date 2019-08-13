@@ -39,7 +39,6 @@ var VM = new Vue({
                     if (res.status == 1) {
                         localStorage.setItem('api_token', res.data.api_token);
                         _.showvideo = true;
-                        _.islogin = false;
                     }
                 }
             });
@@ -84,6 +83,7 @@ var VM = new Vue({
             _.logining = true;
             setTimeout(function () {
                 _.logining = false;
+                _.islogin = false;
             }, 1500);
         }
     }
