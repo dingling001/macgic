@@ -20,19 +20,19 @@
     <div v-show="info">
         <div id="map" class="map"></div>
         <div class="floorbox">
-            <span :class="{spanactive:findex==1}" @click="tab(1)">1F</span>
-            <span :class="{spanactive:findex==2}" @click="tab(2)">2F</span>
-            <span :class="{spanactive:findex==3}" @click="tab(3)">3F</span>
+            <span :class="{spanactive:findex==1}" @touchstart="tab(1)">1F</span>
+            <span :class="{spanactive:findex==2}" @touchstart="tab(2)">2F</span>
+            <span :class="{spanactive:findex==3}" @touchstart="tab(3)">3F</span>
         </div>
-        <div class="backbtn" @click="window.history.go(-1)"></div>
-        <div class="label" v-if="Object.keys(exhibit_list).length>0">
+        <div class="backbtn" @touchstart="window.history.go(-1)"></div>
+        <div class="label" v-if="lists.length>0">
             <div class="labelnamebox">{{exhibit_list.title}}</div>
             <div class="labelfloor"><span class="img"><img src="../assets/img/pos.png" alt=""></span> <span>{{exhibit_list.map_name}} {{exhibit_list.exhibition_name}}</span>
             </div>
             <div class="labelcontent" v-html="exhibit_list.content"></div>
-            <div class="labelbtn" @click="go_detail(exhibit_list.exhibit_id)">查看详情</div>
+            <div class="labelbtn" @touchstart="go_detail(exhibit_list.exhibit_id)">查看详情</div>
             <div class="palybox">
-                <em class="pause_box" v-if="inds==0" @click.stop="pause_audio(0)">
+                <em class="pause_box" v-if="inds==0" @touchstart.stop="pause_audio(0)">
                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                          xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="114px" height="114px"
                          viewBox="0 0 12 12" style="enable-background:new 0 0 50 50;" xml:space="preserve">
@@ -54,15 +54,15 @@
                </rect>
              </svg>
                 </em>
-                <img src="../assets/img/paly.png" alt="" v-else @click.stop="play_audio(0)">
+                <img src="../assets/img/paly.png" alt="" v-else @touchstart.stop="play_audio(0)">
             </div>
         </div>
         <div class="label" v-else>
             <div class="nohis">暂无浏览记录</div>
         </div>
-        <audio ref="audio" id="audio" preload="auto" :src="currSong"  @ended="end_audio">
-<!--            @timeupdate="ontimeupdate"-->
-<!--            @loadedmetadata="onloadedmetadata"-->
+        <audio ref="audio" id="audio" preload="auto" :src="currSong" @ended="end_audio">
+            <!--            @timeupdate="ontimeupdate"-->
+            <!--            @loadedmetadata="onloadedmetadata"-->
         </audio>
     </div>
     <div class="netFail animated zoomIn" v-if="!info&&isflag">
@@ -74,7 +74,7 @@
                     <div> 快使用智慧笔收听讲解吧！</div>
                 </div>
             </div>
-            <div class="btn" @click="window.history.go(-1)">确定</div>
+            <div class="btn" @touchstart="window.history.go(-1)">确定</div>
         </div>
     </div>
 </div>
@@ -82,6 +82,10 @@
 </html>
 <script src="../assets/lib/jquery.min.3.3.1.js"></script>
 <script src="../assets/lib/vue.min.2.2.2.js"></script>
+<script type="text/javascript" src="../assets/js/fastclick.js"></script>
+<script>
+    new FastClick(document.body);
+</script>
 <script src="../assets/lib/leaflet/leaflet.js"></script>
 <script src="../assets/lib/swiper/swiper.min.js"></script>
 <script src="../assets/js/common.js"></script>

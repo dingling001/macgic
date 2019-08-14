@@ -25,23 +25,27 @@
     margin: 0;
 }
 
-.c1 .p1{
+.c1 .p1 {
     font-size: .3rem;
     font-weight: bold;
     text-align: center;
 }
-.labelnamebox{
+
+.labelnamebox {
     font-weight: bold;
 }
-.labelcontent{
+
+.labelcontent {
     height: 1rem;
 }
-.nohis{
+
+.nohis {
     padding: 1rem 0;
     text-align: center;
     font-size: .36rem;
     color: #ccc;
 }
-.btn{
 
+.backbtn {
+    top: 50%
 }

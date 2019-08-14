@@ -33,18 +33,18 @@
     </div>
     <div class="chart" id="chart"></div>
     <div class="navbox">
-        <a class="navitem" href="./pages/mapindex.html?pos=1">
+        <div class="navitem" @touchstart="window.location.href='./pages/mapindex.html?pos=1'">
             <div class="navimg"><img src="./assets/img/map.png" alt=""></div>
             <div>地图导览</div>
-        </a>
-        <a class="navitem" href="">
+        </div>
+        <div class="navitem">
             <div class="navimg"><img src="./assets/img/game.png" alt=""></div>
             <div>互动游戏</div>
-        </a>
-        <a class="navitem" href="./pages/mymacgic.html">
+        </div>
+        <div class="navitem" @touchstart="window.location.href='./pages/mymacgic.html'">
             <div class="navimg"><img src="./assets/img/logo.png" alt=""></div>
             <div>我的科技馆</div>
-        </a>
+        </div>
     </div>
     <div class="codebox">
         <div class="public_code"><img src="./assets/img/wx_code.png" alt=""></div>
@@ -57,6 +57,10 @@
 </html>
 <script type="text/javascript" src="assets/lib/jquery.min.3.3.1.js"></script>
 <script type="text/javascript" src="assets/lib/vue.min.2.2.2.js"></script>
+<script type="text/javascript" src="assets/js/fastclick.js"></script>
+<script>
+    new FastClick(document.body);
+</script>
 <script type="text/javascript" src="assets/lib/echarts.min.js"></script>
 <script type="text/javascript" src="assets/js/common.js"></script>
 <script type="text/javascript" src="assets/js/index.js"></script>

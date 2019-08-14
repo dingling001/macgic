@@ -20,17 +20,17 @@
     <div id="map" class="map"></div>
     <div class="exhibit_list">
         <span :class="['exhibit_item',ind==index?'exhibit_item_active':'']" v-for="(item,index) in exhibition_list"
-              :key="item.exhibition_id" @click="changeExhibit(index)">{{item.exhibition_name}}</span>
+              :key="item.exhibition_id" @touchstart="changeExhibit(index)">{{item.exhibition_name}}</span>
     </div>
-    <div class="backbtn" @click="window.history.go(-1)"></div>
+    <div class="backbtn" @touchstart="window.history.go(-1)"></div>
     <div class="label" v-if="exhibit_list.length" >
         <div class="labelnamebox">{{exhibit_list[0].exhibit_name}}</div>
         <div class="labelfloor"><span class="img"><img src="../assets/img/pos.png" alt=""></span> <span>{{map_name}} {{exhibition_name}}</span>
         </div>
         <div class="labelcontent" v-html="exhibit_list[0].desc"></div>
-        <div class="labelbtn" @click="go_detail(exhibit_list[0].exhibit_id)">查看详情</div>
+        <div class="labelbtn" @touchstart="go_detail(exhibit_list[0].exhibit_id)">查看详情</div>
         <div class="palybox">
-            <em class="pause_box" v-if="inds==0" @click.stop="pause_audio(0)">
+            <em class="pause_box" v-if="inds==0" @touchstart.stop="pause_audio(0)">
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                      xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="114px" height="114px"
                      viewBox="0 0 12 12" style="enable-background:new 0 0 50 50;" xml:space="preserve">
@@ -52,19 +52,19 @@
                </rect>
              </svg>
             </em>
-            <img src="../assets/img/paly.png" alt="" v-else @click.stop="play_audio(0)">
+            <img src="../assets/img/paly.png" alt="" v-else @touchstart.stop="play_audio(0)">
         </div>
     </div>
     <div class="mold animated fadeIn" v-show="showmore">
         <div class="moldlist animated zoomIn">
             <div :class="['molditem animated bounceInDown  delay-'+index+'s',inds==index?'molditemactive':'']"
-                 v-for="(item,index) in exhibit_list" @click="go_detail(item.exhibit_id)">
+                 v-for="(item,index) in exhibit_list" @touchstart="go_detail(item.exhibit_id)">
                 <div class="moldimg"><img :src="baseImgUrl+item.list_img" alt=""></div>
                 <div class="moldname">{{item.exhibit_name}}</div>
                 <div class="moldtime" v-if="item.audio">
                     <span>{{item.audio_time}}</span>
                     <span>
-                          <em class="pause_box" v-if="inds==index" @click="pause_audio(index)">
+                          <em class="pause_box" v-if="inds==index" @touchstart="pause_audio(index)">
                               <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="90px" height="44px"
                                    viewBox="0 0 12 12" style="enable-background:new 0 0 50 50;" xml:space="preserve">
@@ -86,12 +86,12 @@
                </rect>
              </svg>
                       </em>
-                        <img src="../assets/img/paly.png" alt="" v-else @click="play_audio(index)">
+                        <img src="../assets/img/paly.png" alt="" v-else @touchstart="play_audio(index)">
                     </span>
                 </div>
             </div>
         </div>
-        <div class="closebox" @click="colseauido"><img src="../assets/img/close.png" alt=""></div>
+        <div class="closebox" @touchstart="colseauido"><img src="../assets/img/close.png" alt=""></div>
     </div>
     <audio ref="audio" id="audio" preload="auto" :src="currSong" @timeupdate="ontimeupdate"
            @loadedmetadata="onloadedmetadata" @ended="end_audio">
@@ -101,6 +101,10 @@
 </html>
 <script src="../assets/lib/jquery.min.3.3.1.js"></script>
 <script src="../assets/lib/vue.min.2.2.2.js"></script>
+<script type="text/javascript" src="../assets/js/fastclick.js"></script>
+<script>
+    new FastClick(document.body);
+</script>
 <script src="../assets/lib/leaflet/leaflet.js"></script>
 <script src="../assets/lib/swiper/swiper.min.js"></script>
 <script src="../assets/js/common.js"></script>

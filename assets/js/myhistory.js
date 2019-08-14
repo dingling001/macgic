@@ -21,7 +21,6 @@ var VM = new Vue({
         is_playing: false,
         audio_time: '00:00',
         cur: 0,
-
         findex: 1,
         isflag: false,
         imageOverlay: null,
@@ -64,7 +63,6 @@ var VM = new Vue({
                             if (_.lists.length > 1) {
                                 _.exhibit_list = _.lists[0]
                             }
-
                             _.imgurl = res.data.mapInfo.png_map_path;
                             _.isflag = true;
                             resolve()
@@ -79,6 +77,7 @@ var VM = new Vue({
             // exhibit_info
             window.location.href = './mapex.html?floor_id=' + _.maplist[index].floor_id
         },
+        // 初始化地图
         initMap: function () {
             var v = this;
             var imgWidth = v.imgWidth;
@@ -106,6 +105,7 @@ var VM = new Vue({
                 v.initMarkers();
             });
         },
+        // 渲染点位
         initMarkers: function () {
             var v = this;
             var imgWidth = v.imgWidth;
@@ -251,7 +251,7 @@ var VM = new Vue({
             var _ = this;
             window.location.href = './mapd.html?exhibit_id=' + id;
         },
-
+// 切换底图
         tab: function (index) {
             var _ = this;
             _.findex = index;

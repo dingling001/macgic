@@ -17,52 +17,56 @@
 <div id="main">
     <div v-show="severimgshow" class="animated slideInLeft">
         <div class="fbox">
-            <div class="f_img floor1" @click="goex(2)">
+            <div class="f_img floor1" @touchstart="goex(2)">
                 <img src="../assets/img/floor/3F.png" alt="">
-                <img src="../assets/img/floor/f31.png" alt="" class="r animated flash infinite" @click.stop="go_ex">
-                <img src="../assets/img/floor/f32.png" alt="" class="m animated flash infinite" @click.stop="go_ex">
-                <img src="../assets/img/floor/f33.png" alt="" class="l animated flash infinite" @click.stop="go_ex">
+                <img src="../assets/img/floor/f31.png" alt="" class="r animated flash infinite" @touchstart.stop="go_ex">
+                <img src="../assets/img/floor/f32.png" alt="" class="m animated flash infinite" @touchstart.stop="go_ex">
+                <img src="../assets/img/floor/f33.png" alt="" class="l animated flash infinite" @touchstart.stop="go_ex">
                 <div class="text text3"></div>
             </div>
-            <div class="f_img  floor1 floor2" @click="goex(1)">
+            <div class="f_img  floor1 floor2" @touchstart="goex(1)">
                 <img src="../assets/img/floor/2F.png" alt="">
-                <img src="../assets/img/floor/f21.png" alt="" class="r animated flash infinite" @click.stop="go_ex">
-                <img src="../assets/img/floor/f22.png" alt="" class="m animated flash infinite" @click.stop="go_ex">
-                <img src="../assets/img/floor/f23.png" alt="" class="l animated flash infinite" @click.stop="go_ex">
+                <img src="../assets/img/floor/f21.png" alt="" class="r animated flash infinite" @touchstart.stop="go_ex">
+                <img src="../assets/img/floor/f22.png" alt="" class="m animated flash infinite" @touchstart.stop="go_ex">
+                <img src="../assets/img/floor/f23.png" alt="" class="l animated flash infinite" @touchstart.stop="go_ex">
                 <div class="text text2"></div>
             </div>
-            <div class="f_img floor1 floor3" @click="goex(0)">
+            <div class="f_img floor1 floor3" @touchstart="goex(0)">
                 <img src="../assets/img/floor/1F.png" alt="">
-                <img src="../assets/img/floor/f11.png" alt="" class="r animated flash infinite" @click.stop="go_ex">
-                <img src="../assets/img/floor/f12.png" alt="" class="m animated flash infinite" @click.stop="go_ex">
-                <img src="../assets/img/floor/f13.png" alt="" class="l animated flash infinite" @click.stop="go_ex">
+                <img src="../assets/img/floor/f11.png" alt="" class="r animated flash infinite" @touchstart.stop="go_ex">
+                <img src="../assets/img/floor/f12.png" alt="" class="m animated flash infinite" @touchstart.stop="go_ex">
+                <img src="../assets/img/floor/f13.png" alt="" class="l animated flash infinite" @touchstart.stop="go_ex">
                 <img src="../assets/img/mpos.png" alt="" :class="['mypos animated  infinite',pos==1?'zoomIn':'']">
                 <img src="../assets/img/mpos.png" alt="" :class="['mypos1 animated  infinite',pos==2?'zoomIn':'']">
                 <div class="text text1"></div>
             </div>
         </div>
         <div class="btnbox">
-            <div class="navitem" @click="severimgshow=false">
+            <div class="navitem" @touchstart="severimgshow=false">
                 <div class="navimg"><img src="../assets/img/floor/sever.png" alt=""></div>
             </div>
-            <div class="navitem " @click="mypos">
+            <div class="navitem " @touchstart="mypos">
                 <div class="navimg"><img src="../assets/img/floor/mystation.png" alt=""></div>
             </div>
-            <a class="navitem" href="./maplist.html">
+            <div class="navitem" @touchstart="window.location.href='./maplist.html'">
                 <div class="navimg"><img src="../assets/img/floor/list.png" alt=""></div>
-            </a>
+            </div>
         </div>
     </div>
     <div class="severimg animated slideInRight" v-show="!severimgshow">
         <img src="../assets/img/floor/severimg.png" alt="">
     </div>
-    <div class="backbtn" v-show="severimgshow" @click="window.history.go(-1)"></div>
-    <div class="backbtn" v-show="!severimgshow" @click="severimgshow=true"></div>
+    <div class="backbtn" v-show="severimgshow" @touchstart="window.history.go(-1)"></div>
+    <div class="backbtn" v-show="!severimgshow" @touchstart="severimgshow=true"></div>
 </div>
 </body>
 </html>
 <script src="../assets/lib/jquery.min.3.3.1.js"></script>
 <script src="../assets/lib/vue.min.2.2.2.js"></script>
+<script type="text/javascript" src="../assets/js/fastclick.js"></script>
+<script>
+    new FastClick(document.body);
+</script>
 <script src="../assets/lib/echarts.min.js"></script>
 <script src="../assets/js/common.js"></script>
 <script src="../assets/js/mapindex.js"></script>

@@ -31,17 +31,17 @@
         <!--        <div class="swiper-pagination"></div>-->
     </div>
     <div class="floorbox">
-        <span :class="{spanactive:findex==index}" @click="tab(index)" v-for="(item,index) in mapinfo">{{index+1}}F</span>
+        <span :class="{spanactive:findex==index}" @touchstart="tab(index)" v-for="(item,index) in mapinfo">{{index+1}}F</span>
     </div>
     <div class="moldlist animated bounceInUp">
         <div :class="['molditem',inds==index?'molditemactive':'']"
-             v-for="(item,index) in mapinfo[findex].exhibition_list[activeIndex].exhibit_list" @click="go_detail(item.exhibit_id)">
+             v-for="(item,index) in mapinfo[findex].exhibition_list[activeIndex].exhibit_list" @touchstart="go_detail(item.exhibit_id)">
             <div class="moldimg"><img :src="baseImgUrl+item.exhibit_img" alt=""></div>
             <div class="moldname">{{item.exhibit_name}}</div>
             <div class="moldtime" v-if="item.audio_ogg">
                 <span>{{item.audio_time}}</span>
                 <span>
-                          <em class="pause_box" v-if="inds==index" @click.stop="pause_audio(index)">
+                          <em class="pause_box" v-if="inds==index" @touchstart.stop="pause_audio(index)">
                               <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                                    xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="90px" height="44px"
                                    viewBox="0 0 12 12" style="enable-background:new 0 0 50 50;" xml:space="preserve">
@@ -63,7 +63,7 @@
                </rect>
              </svg>
                       </em>
-                        <img src="../assets/img/paly.png" alt="" v-else @click.stop="play_audio(index)">
+                        <img src="../assets/img/paly.png" alt="" v-else @touchstart.stop="play_audio(index)">
                     </span>
             </div>
         </div>
@@ -71,12 +71,16 @@
     <audio ref="audio" id="audio" preload="auto" :src="currSong" @timeupdate="ontimeupdate"
            @loadedmetadata="onloadedmetadata" @ended="end_audio">
     </audio>
-    <div class="backbtn" @click="window.history.go(-1)"></div>
+    <div class="backbtn" @touchstart="window.history.go(-1)"></div>
 </div>
 </body>
 </html>
 <script src="../assets/lib/jquery.min.3.3.1.js"></script>
 <script src="../assets/lib/vue.min.2.2.2.js"></script>
+<script type="text/javascript" src="../assets/js/fastclick.js"></script>
+<script>
+    new FastClick(document.body);
+</script>
 <script src="../assets/lib/swiper/swiper.min.js"></script>
 <script src="../assets/js/common.js"></script>
 <script src="../assets/js/maplist.js"></script>

@@ -17,11 +17,11 @@
 <body>
 <div id="main" v-cloak class="main">
     <div class="mytopnav">
-        <div class="imgl animated bounceInLeft" @click="go_his">
+        <div class="imgl animated bounceInLeft" @touchstart="go_his">
             <img src="../assets/img/mcollect.png" alt="">
             <div>游览历史</div>
         </div>
-        <div class="imgr animated bounceInRight" @click="go_collect">
+        <div class="imgr animated bounceInRight" @touchstart="go_collect">
             <img src="../assets/img/mhistroy.png" alt="">
             <div>我的收藏</div>
         </div>
@@ -46,7 +46,7 @@
     <div v-else class="loginbox">
         <div class="headimg"><img src="../assets/img/headimg.png" alt=""></div>
         <div class="loginname">{{name}}，等你好久了~</div>
-        <div class="loginout" @click="isout=true">退出</div>
+        <div class="loginout" @touchstart="isout=true">退出</div>
     </div>
     <div class="netFail animated zoomIn" v-show="isout">
         <div class="net_fail icon_outbox">
@@ -55,8 +55,8 @@
                 <p class="p1">您确认要退出登录吗？</p>
             </div>
             <div class="logoutbox">
-                <div class="btnl" @click="isout=false">取消</div>
-                <div class="btn" @click="loginOut">确定</div>
+                <div class="btnl" @touchstart="isout=false">取消</div>
+                <div class="btn" @touchstart="loginOut">确定</div>
             </div>
         </div>
     </div>
@@ -66,14 +66,14 @@
                 <div class="icon_login"></div>
                 <p class="p1">{{logintext}}</p>
             </div>
-            <div class="btn" @click="logining=false">确定</div>
+            <div class="btn" @touchstart="logining=false">确定</div>
         </div>
     </div>
-    <a class="backbtn animated bounceInDown"  href="../index.html"></a>
+    <div class="backbtn animated bounceInDown" @touchstart="window.location.href='../index.html'"></div>
     <div class="videobox" v-if="showvideo">
-        <video width="100%" height="100%"  muted="muted" autoplay id="video" @ended="endvideo">
+        <video width="100%" height="100%" muted="muted" autoplay id="video" @ended="endvideo">
             <source src="../assets/img/login.ogv" type="video/ogg">
-            <source src="../assets/img/l.mp4"  type="video/mp4">
+            <source src="../assets/img/l.mp4" type="video/mp4">
         </video>
     </div>
 </div>
@@ -81,5 +81,9 @@
 </html>
 <script src="../assets/lib/jquery.min.3.3.1.js"></script>
 <script src="../assets/lib/vue.min.2.2.2.js"></script>
+<script type="text/javascript" src="../assets/js/fastclick.js"></script>
+<script>
+    new FastClick(document.body);
+</script>
 <script src="../assets/js/common.js"></script>
 <script src="../assets/js/mymacgic.js"></script>

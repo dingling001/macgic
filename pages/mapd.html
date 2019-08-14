@@ -29,17 +29,17 @@
             <img src="../assets/img/scan.png" alt="">
             <span>{{exhibit_info.look_num}}</span>
         </div>
-        <div class="shareitem" @click="_do_like">
+        <div class="shareitem" @touchstart="_do_like">
             <img :src="exhibit_info.is_collection==1? '../assets/img/collect1.png':'../assets/img/collect.png'" alt="">
             <span>{{exhibit_info.collection_num}}</span>
         </div>
-        <div class="shareitem" @click="isshowlayer=true">
+        <div class="shareitem" @touchstart="isshowlayer=true">
             <img src="../assets/img/share.png" alt="">
             <span>分享</span>
         </div>
     </div>
     <div class="controlbox  ">
-        <div class="cimg animated zoomIn" @click="toggleplay"><img
+        <div class="cimg animated zoomIn" @touchstart="toggleplay"><img
                 :src="playing?'../assets/img/paused.png':'../assets/img/paly.png'" alt=""></div>
         <div class="curtime">{{currentTime}}</div>
         <div class="cprocessbox">
@@ -66,7 +66,7 @@
             <div class="swiper-scrollbar"></div>
         </div>
     </div>
-    <div class="mold animated fadeIn" v-show="isshowlayer" @click="isshowlayer=false">
+    <div class="mold animated fadeIn" v-show="isshowlayer" @touchstart="isshowlayer=false">
         <div class="codeitem animated zoomIn">
             <span>打开手机扫描二维码，</span>
             <span>向朋友们分享精美展品吧！</span>
@@ -75,17 +75,17 @@
                     <img :src="baseImgUrl+exhibit_info.exhibit_default_img" alt="">
                 </div>
             </div>
-            <div class="sharebtn" @click.stop="isshowlayer=false">确定</div>
+            <div class="sharebtn" @touchstart.stop="isshowlayer=false">确定</div>
         </div>
     </div>
-    <div class="backbtn" @click="window.history.go(-1)"></div>
+    <div class="backbtn" @touchstart="window.history.go(-1)"></div>
     <div class="netFail animated zoomIn" v-show="nologin">
         <div class="net_fail ">
             <div class="c1">
                 <div class="nologin"></div>
                 <p class="p1">您尚未登录</p>
             </div>
-            <div class="btn" @click="nologin=false">确定</div>
+            <div class="btn" @touchstart="nologin=false">确定</div>
         </div>
     </div>
 </div>
@@ -93,6 +93,10 @@
 </html>
 <script src="../assets/lib/jquery.min.3.3.1.js"></script>
 <script src="../assets/lib/vue.min.2.2.2.js"></script>
+<script type="text/javascript" src="../assets/js/fastclick.js"></script>
+<script>
+    new FastClick(document.body);
+</script>
 <script src="../assets/lib/swiper/swiper.min.js"></script>
 <script src="../assets/lib/qrcode.js"></script>
 <script src="../assets/js/common.js"></script>
